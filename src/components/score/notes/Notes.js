@@ -8,13 +8,13 @@ function Notes(props) {
         <LineContainer>
             {props.notes.map((bar, i) => (
                 <BarContainer bg={i}>
-                    <Note lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={3} left={0} length={100}/>
-                    <Note lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={2} left={100} length={50} />
-                    <Note lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={1} left={150} length={50} />
-                    <Note lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={0} left={200} length={50} />
-                    <Note lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={-1} left={250} length={50} />
-                    <Note lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={-2} left={300} length={75} />
-                    <Note lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={-3} left={375} length={125} />
+                    <Note type={"half"} lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={3} left={0} length={100}/>
+                    <Note type={"quarter"} lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={2} left={100} length={50} />
+                    <Note type={"quarter"} lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={1} left={150} length={50} />
+                    <Note type={"quarter"} lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={0} left={200} length={50} />
+                    <Note type={"quarter"} lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={-1} left={250} length={50} />
+                    <Note type={"quarter"} lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={-2} left={300} length={75} />
+                    <Note type={"half"} lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={-3} left={375} length={125} />
 
                 </BarContainer>
 

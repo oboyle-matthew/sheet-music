@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from "styled-components";
-import QuarterNote from "./note_types/QuarterNote";
+import QuarterNote from "./note_types/real_notes/QuarterNote";
+import HalfNote from "./note_types/real_notes/HalfNote";
 
 function Note(props) {
     const noteHeight = props.gapBetweenLines-2;
@@ -9,12 +10,18 @@ function Note(props) {
     const stemHeight = 3*props.gapBetweenLines + 2.5*props.lineWidth;
     const stemWidth = props.gapBetweenLines/10;
     const topOffset = (props.top/2) * props.gapBetweenLines + (props.top/2) * props.lineWidth;
+    let noteType;
+    if (props.type === "quarter") {
+        noteType = <QuarterNote stemWidth={stemWidth} top={props.top} stemHeight={stemHeight} noteWidth={noteWidth} noteHeight={noteHeight}/>
+    } else if (props.type === "half") {
+        noteType = <HalfNote stemWidth={stemWidth} top={props.top} stemHeight={stemHeight} noteWidth={noteWidth} noteHeight={noteHeight}/>
+    }
     return (
         <NoteContainer topOffset={topOffset} left={props.left} length={props.length}>
             <Accidental stemHeight={stemHeight} noteHeight={noteHeight} noteWidth={noteWidth} accidentalHeight={accidentalHeight}>
                 <Sharp accidentalHeight={accidentalHeight} fontSize={props.gapBetweenLines*2}>&#9839;</Sharp>
             </Accidental>
-            <QuarterNote type={props.type} stemWidth={stemWidth} top={props.top} stemHeight={stemHeight} noteWidth={noteWidth} noteHeight={noteHeight}/>
+            {noteType}
         </NoteContainer>
     );
 }

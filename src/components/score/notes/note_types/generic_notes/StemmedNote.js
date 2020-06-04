@@ -1,10 +1,15 @@
 import React from 'react';
 import styled from "styled-components";
 
-function QuarterNote(props) {
-    const borderWidth = props.stemWidth*1.5;
+function StemmedNote(props) {
+    let background = "red" //Note: Should always be overwriiten: Red note == ERROR!
+    if (props.type === "quarter") {
+        background = "black";
+    } else if (props.type === "half") {
+        background = "transparent";
+    }
     return (
-        <Note borderWidth={borderWidth} stemHeight={props.stemHeight} stemWidth={props.stemWidth} noteWidth={props.noteWidth} noteHeight={props.noteHeight}/>
+        <Note background={background} borderWidth={props.borderWidth} stemHeight={props.stemHeight} stemWidth={props.stemWidth} noteWidth={props.noteWidth} noteHeight={props.noteHeight}/>
     );
 }
 
@@ -23,7 +28,7 @@ const Note = styled.div`
         content: "";
         width: ${props => props.noteWidth-(props.borderWidth*2)}px;
         height: ${props => props.noteHeight-(props.borderWidth*2)}px;
-        background: black;
+        background: ${props => props.background};
         transform: rotate(-30deg);
         position: relative;
         top: ${props => props.stemHeight - props.noteHeight/2}px;
@@ -31,4 +36,4 @@ const Note = styled.div`
     }
 `;
 
-export default QuarterNote;
+export default StemmedNote;
