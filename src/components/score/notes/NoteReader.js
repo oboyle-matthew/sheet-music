@@ -23,12 +23,12 @@ function NoteReader(props) {
 
 const NoteContainer = styled.div`
     position: absolute;
-    left: ${props => props.left}px;
+    left: ${props => props.left}%;
     top: ${props => props.topOffset}px;
     display: flex;
     flex-direction: row;
-    // background-color: orange;
-    width: ${props => props.length}px;
+    background-color: orange;
+    width: ${props => props.length}%;
 `;
 
 export default NoteReader;

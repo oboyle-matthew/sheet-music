@@ -1,18 +1,49 @@
 import React from 'react';
 import styled from "styled-components";
 import NoteReader from "./NoteReader";
+// {"pitch": "C", "octave": 3, "type": "quarter", "length": {"4n": 1}, "position": "0:0:0"},
+
+const pitchToTop = {
+    "C": -3,
+    "B": -2,
+    "A": -1,
+    "G": 0,
+    "F": 1,
+    "E": 2,
+    "D": 3,
+};
+
+const posToPercentage = (position) => {
+    const quarters = position.split(":")[1];
+    const sixteenths = position.split(":")[2];
+    const left = ((parseInt(quarters) * (1/4)) + (parseInt(sixteenths) * (1/16))) * 100;
+    return left;
+};
+
+const lengthToPercentage = (length) => {
+    const total = length["4n"] * 25;
+    return total;
+}
 
 function Notes(props) {
     return (
         <LineContainer>
             {props.notes.map((bar, i) => (
                 <BarContainer bg={i}>
-                    <NoteReader type={"half"} lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={3} left={0} length={100}/>
-                    <NoteReader type={"quarter"} lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={2} left={125} length={100} />
-                    {/*<NoteReader type={"quarter"} lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={1} left={150} length={50} />*/}
-                    {/*<NoteReader type={"quarter"} lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={0} left={0} length={200} />*/}
-                    <NoteReader type={"quarter"} lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={-1} left={250} length={200} />
-                    <NoteReader type={"quarter"} lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={-2} left={375} length={100} />
+                    {bar.map(note => {
+                        console.log(note.type);
+                        const type = note.type;
+                        const top = pitchToTop[note.pitch];
+                        const left = posToPercentage(note.position);
+                        const length = lengthToPercentage(note.length);
+
+                        return <NoteReader type={type} lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={top} left={left} length={length}/>
+                    })}
+                    {/*<NoteReader type={"quarter"} lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={2} left={125} length={100} />*/}
+                    {/*/!*<NoteReader type={"quarter"} lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={1} left={150} length={50} />*!/*/}
+                    {/*/!*<NoteReader type={"quarter"} lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={0} left={0} length={200} />*!/*/}
+                    {/*<NoteReader type={"quarter"} lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={-1} left={250} length={200} />*/}
+                    {/*<NoteReader type={"quarter"} lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={-2} left={375} length={100} />*/}
                     {/*<NoteReader type={"half"} lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={-3} left={375} length={125} />*/}
 
                 </BarContainer>

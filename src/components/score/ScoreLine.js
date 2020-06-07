@@ -11,12 +11,12 @@ const innerSize = lineWidth*3+gapBetweenLines*4;
 
 const testNotes = [
     [
-        {"notes": [{"pitch": "C", "octave": 3}], "type": "quarter", "length": {"4n": 1}, "position": "1:0:0"},
-        {"pitch": "E", "octave": 3, "type": "quarter", "length": {"4n": 1}, "position": "1:1:0"},
-        {"pitch": "G", "octave": 3, "type": "quarter", "length": {"4n": 1}, "position": "1:2:0"},
+        {"pitch": "C", "octave": 3, "type": "quarter", "length": {"4n": 1}, "position": "0:0:0"},
+        {"pitch": "E", "octave": 3, "accidental": "sharp", "type": "half", "length": {"4n": 2}, "position": "0:1:0"},
+        {"pitch": "G", "octave": 3, "type": "quarter", "length": {"4n": 1}, "position": "0:3:0"},
     ],
     [
-        {"pitch": "C", "octave": 4, "type": "quarter", "length": {"4n": 3}, "position": "2:0:0"},
+        {"pitch": "C", "octave": 4, "type": "quarter", "length": {"4n": 3}, "position": "1:0:0"},
     ]
 ];
 
@@ -26,10 +26,6 @@ class ScoreLine extends React.Component {
     }
 
     render () {
-        const height=200;
-        const sharpFontSize = height*2;
-        const naturalFontSize = height*2;
-        const flatFontSize = height*2;
         return <StaffContainer>
             <Staff>
                 <TrebleClef innerSize={innerSize}/>
