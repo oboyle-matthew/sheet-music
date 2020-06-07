@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components'
 
 function TrebleClef(props) {
-    console.log(props.innerSize);
     return (
         <Treble innerSize={props.innerSize}>
             &#119070;

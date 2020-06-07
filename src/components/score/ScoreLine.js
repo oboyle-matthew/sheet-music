@@ -26,6 +26,10 @@ class ScoreLine extends React.Component {
     }
 
     render () {
+        const height=200;
+        const sharpFontSize = height*2;
+        const naturalFontSize = height*2;
+        const flatFontSize = height*2;
         return <StaffContainer>
             <Staff>
                 <TrebleClef innerSize={innerSize}/>
