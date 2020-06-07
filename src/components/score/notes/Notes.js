@@ -1,19 +1,19 @@
 import React from 'react';
 import styled from "styled-components";
-import Note from "./Note";
+import NoteReader from "./NoteReader";
 
 function Notes(props) {
     return (
         <LineContainer>
             {props.notes.map((bar, i) => (
                 <BarContainer bg={i}>
-                    <Note type={"half"} lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={3} left={0} length={100}/>
-                    <Note type={"quarter"} lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={2} left={125} length={100} />
-                    {/*<Note type={"quarter"} lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={1} left={150} length={50} />*/}
-                    {/*<Note type={"quarter"} lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={0} left={0} length={200} />*/}
-                    <Note type={"quarter"} lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={-1} left={250} length={200} />
-                    <Note type={"quarter"} lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={-2} left={375} length={100} />
-                    {/*<Note type={"half"} lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={-3} left={375} length={125} />*/}
+                    <NoteReader type={"half"} lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={3} left={0} length={100}/>
+                    <NoteReader type={"quarter"} lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={2} left={125} length={100} />
+                    {/*<NoteReader type={"quarter"} lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={1} left={150} length={50} />*/}
+                    {/*<NoteReader type={"quarter"} lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={0} left={0} length={200} />*/}
+                    <NoteReader type={"quarter"} lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={-1} left={250} length={200} />
+                    <NoteReader type={"quarter"} lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={-2} left={375} length={100} />
+                    {/*<NoteReader type={"half"} lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={-3} left={375} length={125} />*/}
 
                 </BarContainer>
 
