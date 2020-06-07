@@ -21,8 +21,17 @@ const posToPercentage = (position) => {
 };
 
 const lengthToPercentage = (length) => {
-    const total = length["4n"] * 25;
-    return total;
+    // const total = length["4n"] * 25;
+    let total = 0;
+    Object.keys(length).map(key => {
+        const unit = key.charAt(key.length-1);
+        if (unit === "n") {
+            total += length[key] * (1/key.slice(0,-1))
+        } else if (unit === "m") {
+            total += length[key] * key.slice(0,-1);
+        }
+    });
+    return total*100;
 }
 
 function Notes(props) {
