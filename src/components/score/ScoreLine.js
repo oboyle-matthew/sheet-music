@@ -4,59 +4,38 @@ import TrebleClef from "./symbols/clefs/TrebleClef";
 import KeySignature from "./symbols/key_sigs/KeySignature";
 import TimeSignature from "./symbols/time_sigs/TimeSignature";
 import Notes from "./notes/Notes";
+import LineInfo from "./LineInfo";
+import Bar from "./Bar";
 
-const lineWidth = 2;
-const gapBetweenLines = 20;
-const innerSize = lineWidth*3+gapBetweenLines*4;
+const getRandomColor = () => {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+};
 
 function ScoreLine(props) {
+    const { lineWidth, gapBetweenLines } = props;
     return (
-        <StaffContainer>
-            <Staff>
-                <TrebleClef innerSize={innerSize}/>
-                <KeySignature innerSize={innerSize} lineWidth={lineWidth} gapBetweenLines={gapBetweenLines}/>
-                <TimeSignature/>
-                <Notes lineWidth={lineWidth} gapBetweenLines={gapBetweenLines} notes={props.notes}/>
-            </Staff>
+        <StaffContainer gapBetweenLines={gapBetweenLines} lineWidth={lineWidth} >
+            <LineInfo lineWidth={lineWidth} gapBetweenLines={gapBetweenLines} />
+            {props.notes.map(bar => (
+                <Bar notes={bar} lineWidth={lineWidth} gapBetweenLines={gapBetweenLines} width={100/props.notes.length} />
+            ))}
         </StaffContainer>
     )
 }
 
 const StaffContainer = styled.div`
-    margin-top: 30px;
-`;
-
-const Staff = styled.div`
-  & {
-    position: relative;
+    padding-top: ${props => props.gapBetweenLines*2}px;
+    padding-bottom: ${props => props.gapBetweenLines*2}px;
+    // background-color: ${getRandomColor};
     width: 100%;
-    border-top: ${lineWidth}px solid black;
-    border-bottom: ${lineWidth}px solid black;
-    height: ${(lineWidth*3+gapBetweenLines*4)}px;
+    height: ${props => (props.lineWidth*5+props.gapBetweenLines*4)}px;
     display: flex;
     flex-direction: row;
-  }
-  &:before {
-    position: absolute;
-    left: 0;
-    border-top: ${lineWidth}px solid black;
-    border-bottom: ${lineWidth}px solid black;
-    content: "";
-    top: ${gapBetweenLines}px;
-    height: ${gapBetweenLines}px;
-    width: 100%;
-    z-index: 200;
-  }
-  &:after {
-    position: absolute;
-    left: 0;
-    border-top: ${lineWidth}px solid black;
-    content: "";
-    top: ${(lineWidth*2+gapBetweenLines*3)}px;
-    width: 100%;
-    z-index: 200;
-  }
-  
 `;
 
 export default ScoreLine;

@@ -12,6 +12,7 @@ function TimeSignature() {
 
 const TimeSigContainer = styled.div`
     margin-left: 15px;
+    margin-right: 10px;
     font-size: 40px;
     font-weight: heavy;
     //background-color: green;

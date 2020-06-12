@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from "styled-components";
 import NoteReader from "./NoteReader";
+import NoteReaderOLD from "./NoteReaderOLD";
 // {"pitch": "C", "octave": 3, "type": "quarter", "length": {"4n": 1}, "position": "0:0:0"},
 
 const pitchToTop = {
@@ -46,7 +47,7 @@ function Notes(props) {
                         const left = posToPercentage(note.position);
                         const length = lengthToPercentage(note.length);
 
-                        return <NoteReader type={type} lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={top} left={left} length={length}/>
+                        return <NoteReaderOLD type={type} lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={top} left={left} length={length}/>
                     })}
                     {/*<NoteReader type={"quarter"} lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={2} left={125} length={100} />*/}
                     {/*/!*<NoteReader type={"quarter"} lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={1} left={150} length={50} />*!/*/}

@@ -1,14 +1,15 @@
 import React from 'react';
 import styled from "styled-components";
 import NoteHead from "./NoteHead";
+import NoteOLD from "../../NoteOLD";
 
 function GenericNote(props) {
     return (
-        <Note background={background} borderWidth={props.borderWidth} stemHeight={props.stemHeight} stemWidth={props.stemWidth} noteWidth={props.noteWidth} noteHeight={props.noteHeight}>
+        <NoteOLD background={background} borderWidth={props.borderWidth} stemHeight={props.stemHeight} stemWidth={props.stemWidth} noteWidth={props.noteWidth} noteHeight={props.noteHeight}>
             <NoteHead background={background} borderWidth={props.borderWidth} stemHeight={props.stemHeight} stemWidth={props.stemWidth} noteWidth={props.noteWidth} noteHeight={props.noteHeight}/>
             <DownNoteStem background={background} borderWidth={props.borderWidth} stemHeight={props.stemHeight} stemWidth={props.stemWidth} noteWidth={props.noteWidth} noteHeight={props.noteHeight}/>
             {/*<UpNoteStem background={background} borderWidth={props.borderWidth} stemHeight={props.stemHeight} stemWidth={props.stemWidth} noteWidth={props.noteWidth} noteHeight={props.noteHeight}/>*/}
-        </Note>
+        </NoteOLD>
     );
 }
 
