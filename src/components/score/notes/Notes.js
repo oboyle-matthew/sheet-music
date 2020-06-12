@@ -4,13 +4,13 @@ import NoteReader from "./NoteReader";
 // {"pitch": "C", "octave": 3, "type": "quarter", "length": {"4n": 1}, "position": "0:0:0"},
 
 const pitchToTop = {
-    "C": -3,
-    "B": -2,
-    "A": -1,
-    "G": 0,
-    "F": 1,
-    "E": 2,
-    "D": 3,
+    "C": 2,
+    "B": 3,
+    "A": 4,
+    "G": 5,
+    "F": 6,
+    "E": 0,
+    "D": 1,
 };
 
 const posToPercentage = (position) => {
@@ -78,7 +78,9 @@ const LineContainer = styled.div`
 const BarContainer = styled.div`
     position: relative;
     width: 50%;
-    //background-color: ${props => props.bg === 0 ? "pink" : "blue"};
+    border-right: 3px solid black;
+    margin-left: 1%;
+    // background-color: ${props => props.bg === 0 ? "pink" : "blue"};
 `;
 
 export default Notes;

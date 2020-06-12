@@ -1,39 +1,50 @@
 import React from 'react';
 import styled from "styled-components";
+import NoteHead from "./NoteHead";
 
 function StemmedNote(props) {
-    let background = "red"; //Note: Should always be overwriiten: Red note == ERROR!
-    if (props.type === "quarter") {
-        background = "black";
-    } else if (props.type === "half") {
-        background = "transparent";
-    }
+    const background="black";
     return (
-        <Note background={background} borderWidth={props.borderWidth} stemHeight={props.stemHeight} stemWidth={props.stemWidth} noteWidth={props.noteWidth} noteHeight={props.noteHeight}/>
+        <Note background={background} borderWidth={props.borderWidth} stemHeight={props.stemHeight} stemWidth={props.stemWidth} noteWidth={props.noteWidth} noteHeight={props.noteHeight}>
+            <NoteHead background={background} borderWidth={props.borderWidth} stemHeight={props.stemHeight} stemWidth={props.stemWidth} noteWidth={props.noteWidth} noteHeight={props.noteHeight}/>
+            <DownNoteStem onClick={() => console.log("Stem")} background={background} borderWidth={props.borderWidth} stemHeight={props.stemHeight} stemWidth={props.stemWidth} noteWidth={props.noteWidth} noteHeight={props.noteHeight}/>
+            {/*<UpNoteStem background={background} borderWidth={props.borderWidth} stemHeight={props.stemHeight} stemWidth={props.stemWidth} noteWidth={props.noteWidth} noteHeight={props.noteHeight}/>*/}
+        </Note>
     );
 }
 
-const Note = styled.div`
+const NoteStem = styled.div`
+    position: relative;
+    display: block;
+    width: ${props => props.stemWidth}px;
+    height: ${props => props.stemHeight}px;
+    background: black;
+`;
+
+const DownNoteStem = styled(NoteStem)`
     & {
+        top: ${props => props.noteHeight/2}px;
+        left: ${props => props.stemWidth/4}px;
         width: ${props => props.stemWidth}px;
         height: ${props => props.stemHeight}px;
-        background: black;
-        margin-left: ${props => props.noteWidth - props.stemWidth}px;
+        border-radius: 100px/400px 0 0 0;
+    }
+`;
+
+const UpNoteStem = styled(NoteStem)`
+    & {
+        top: ${props => props.noteHeight/2 - props.stemHeight}px;
+        left: ${props => props.noteWidth-props.stemWidth}px;
+        width: ${props => props.stemWidth}px;
+        height: ${props => props.stemHeight}px;
         border-radius: 0 0 100px/360px 0;
     }
-    &:before {
-        border-radius: 200%;
-        border: ${props => props.borderWidth}px solid black;
-        display: block;
-        content: "";
-        width: ${props => props.noteWidth-(props.borderWidth*2)}px;
-        height: ${props => props.noteHeight-(props.borderWidth*2)}px;
-        background: ${props => props.background};
-        transform: rotate(-30deg);
-        position: relative;
-        top: ${props => props.stemHeight - props.noteHeight/2}px;
-        left: ${props => props.stemWidth-props.noteWidth}px;
-    }
+`;
+
+
+const Note = styled.div`
+    // background-color: purple;
+    margin-top: 1px;
 `;
 
 export default StemmedNote;

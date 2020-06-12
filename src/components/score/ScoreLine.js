@@ -9,32 +9,17 @@ const lineWidth = 2;
 const gapBetweenLines = 20;
 const innerSize = lineWidth*3+gapBetweenLines*4;
 
-const testNotes = [
-    [
-        {"pitch": "C", "octave": 3, "type": "quarter", "length": {"16n": 4}, "position": "0:0:0"},
-        {"pitch": "E", "octave": 3, "accidental": "sharp", "type": "half", "length": {"4n": 2}, "position": "0:1:0"},
-        {"pitch": "G", "octave": 3, "type": "quarter", "length": {"4n": 1}, "position": "0:3:0"},
-    ],
-    [
-        {"pitch": "C", "octave": 4, "type": "quarter", "length": {"1m": 1}, "position": "1:0:0"},
-    ]
-];
-
-class ScoreLine extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render () {
-        return <StaffContainer>
+function ScoreLine(props) {
+    return (
+        <StaffContainer>
             <Staff>
                 <TrebleClef innerSize={innerSize}/>
                 <KeySignature innerSize={innerSize} lineWidth={lineWidth} gapBetweenLines={gapBetweenLines}/>
                 <TimeSignature/>
-                <Notes lineWidth={lineWidth} gapBetweenLines={gapBetweenLines} notes={testNotes}/>
+                <Notes lineWidth={lineWidth} gapBetweenLines={gapBetweenLines} notes={props.notes}/>
             </Staff>
         </StaffContainer>
-    };
+    )
 }
 
 const StaffContainer = styled.div`
@@ -50,7 +35,6 @@ const Staff = styled.div`
     height: ${(lineWidth*3+gapBetweenLines*4)}px;
     display: flex;
     flex-direction: row;
-    z-index: 200;
   }
   &:before {
     position: absolute;

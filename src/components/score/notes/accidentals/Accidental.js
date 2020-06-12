@@ -6,25 +6,23 @@ import FlatSVG from "../../../../data/accidentals/flat.svg";
 
 
 function Accidental(props) {
-    const { stemHeight, accidentalHeight } = props;
+    const { accidentalHeight, type } = props;
     let accidental;
-    if (props.type === "sharp") {
+    if (type === "sharp") {
         accidental = <SharpNaturalImage src={SharpSVG} />
-    } else if (props.type === "natural") {
+    } else if (type === "natural") {
         accidental = <SharpNaturalImage src={NaturalSVG} />
-    } else if (props.type === "flat") {
+    } else if (type === "flat") {
         accidental = <FlatImage src={FlatSVG} />
     }
-    const topOffset = stemHeight - accidentalHeight / 2;
     return (
-        <AccidentalContainer topOffset={topOffset} accidentalSize={accidentalHeight} >
+        <AccidentalContainer accidentalSize={accidentalHeight} >
             {accidental}
         </AccidentalContainer>
     );
 }
 
 const AccidentalContainer = styled.div`
-    margin-top: ${props => props.topOffset}px;
     width: ${props => props.accidentalSize}px;
     height: ${props => props.accidentalSize}px;
     // background-color: magenta;
