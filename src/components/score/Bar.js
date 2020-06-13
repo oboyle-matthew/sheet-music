@@ -5,6 +5,7 @@ import KeySignature from "./symbols/key_sigs/KeySignature";
 import TimeSignature from "./symbols/time_sigs/TimeSignature";
 import Stave from "./Stave";
 import NoteReader from "./notes/NoteReader";
+import RestReader from "./notes/rests/RestReader";
 
 const click = (event) => {
     console.log(event.target.classList);
@@ -29,7 +30,8 @@ function LineInfo(props) {
                 {/*</div>)*/}
             {/*)}*/}
             {props.notes.map(note => (
-                <NoteReader gapBetweenLines={gapBetweenLines} lineWidth={lineWidth} note={note} />
+                note.pitch === 'rest' ? <RestReader gapBetweenLines={gapBetweenLines} lineWidth={lineWidth} note={note} /> :
+                    <NoteReader gapBetweenLines={gapBetweenLines} lineWidth={lineWidth} note={note} />
             ))}
         </BarContainer>
     );

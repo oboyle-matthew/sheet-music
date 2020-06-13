@@ -1,18 +1,6 @@
 import React from 'react';
-import styled from "styled-components";
-import Accidental from "./accidentals/Accidental";
-import Note from "./Note";
-import Rest from "./rests/RestReader";
-
-const pitchToTop = {
-    "C": 2,
-    "B": 3,
-    "A": 4,
-    "G": 5,
-    "F": 6,
-    "E": 0,
-    "D": 1,
-};
+import styled from 'styled-components'
+import Rest from "./Rest";
 
 const posToPercentage = (position) => {
     const quarters = position.split(":")[1];
@@ -44,36 +32,26 @@ const getRandomColor = () => {
     return color;
 };
 
-function NoteReader(props) {
+function RestReader(props) {
     const { gapBetweenLines, lineWidth, note } = props;
-    const top = pitchToTop[note.pitch];
-    let stem;
-    if (top  < 4) {
-        stem = 'down';
-    } else {
-        stem = 'up';
-    }
-    const topOffset = (top/2) * gapBetweenLines + ((top+2)/2) * lineWidth;
     const left = posToPercentage(note.position);
     const length = lengthToPercentage(note.length);
-
+    const height = gapBetweenLines*4 + lineWidth*5;
     return (
-        <NoteContainer left={left} length={length} top={topOffset} height={gapBetweenLines} >
-            <Accidental type={note.accidental} accidentalHeight={gapBetweenLines} />
-            <Note type={note.type} label={false} gapBetweenLines={gapBetweenLines} noteName={note.pitch} stem={stem} lineWidth={lineWidth} />
-        </NoteContainer>
+        <RestContainer left={left} length={length} height={height} lineWidth={lineWidth} >
+            <Rest type={note.type} gapBetweenLines={gapBetweenLines} lineWidth={lineWidth}  />
+        </RestContainer>
     );
 }
 
-const NoteContainer = styled.div`
+const RestContainer = styled.div`
     position: absolute;
     left: ${props => props.left}%;
-    top: ${props => props.top}px;
     display: flex;
     flex-direction: row;
-    background-color: ${getRandomColor};
     width: ${props => props.length}%;
     height: ${props => props.height}px;
+    // background-color: ${getRandomColor};
 `;
 
-export default NoteReader;
+export default RestReader;

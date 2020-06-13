@@ -48,17 +48,23 @@ const testNotes = [
         {"pitch": "G", "octave": 3, "type": "quarter", "length": {"4n": 1}, "position": "0:3:0"},
     ],
     [
-        {"pitch": "C", "octave": 4, "type": "quarter", "length": {"4n": 1}, "position": "1:0:0"},
+        {"pitch": "rest", "type": "quarter", "length": {"4n": 1}, "position": "1:0:0"},
+        {"pitch": "rest", "type": "half", "length": {"2n": 1}, "position": "1:1:0"},
+        {"pitch": "rest", "type": "eighth", "length": {"8n": 1}, "position": "1:3:0"},
+        {"pitch": "rest", "type": "eighth", "length": {"8n": 1}, "position": "1:3:2"},
     ],
     [
-        {"pitch": "C", "octave": 3, "type": "eighth", "length": {"4n": 4}, "position": "0:0:0"},
-        {"pitch": "D", "octave": 3, "accidental": "sharp", "type": "eighth", "length": {"4n": 2}, "position": "0:1:0"},
-        {"pitch": "E", "octave": 3, "type": "eighth", "length": {"4n": 1}, "position": "0:3:0"},
+        {"pitch": "rest", "type": "whole", "length": {"1n": 1}, "position": "2:0:0"},
     ],
     [
-        {"pitch": "F", "octave": 3, "type": "eighth", "length": {"4n": 1}, "position": "0:0:0"},
-        {"pitch": "G", "octave": 3, "type": "sixteenth", "length": {"4n": 1}, "position": "0:1:0"},
-        {"pitch": "A", "octave": 3, "type": "eighth", "length": {"4n": 1}, "position": "0:2:0"},
+        {"pitch": "C", "octave": 3, "type": "eighth", "length": {"8n": 1}, "position": "0:0:0"},
+        {"pitch": "D", "octave": 3, "type": "eighth", "length": {"8n": 1}, "position": "0:0:2"},
+        {"pitch": "E", "octave": 3, "accidental": "flat", "type": "eighth", "length": {"4n": 1}, "position": "0:3:0"},
+    ],
+    [
+        {"pitch": "F", "octave": 3, "accidental": "sharp", "type": "eighth", "length": {"4n": 1}, "position": "0:0:0"},
+        {"pitch": "G", "octave": 3, "accidental": "natural", "type": "sixteenth", "length": {"4n": 1}, "position": "0:1:0"},
+        {"pitch": "A", "octave": 3, "accidental": "flat", "type": "eighth", "length": {"4n": 1}, "position": "0:2:0"},
         {"pitch": "B", "octave": 3, "type": "sixteenth", "length": {"4n": 1}, "position": "0:3:0"},
     ],
     [
@@ -77,12 +83,12 @@ const testNotes = [
     ],
     [
         {"pitch": "C", "octave": 3, "type": "quarter", "length": {"4n": 4}, "position": "0:0:0"},
-        {"pitch": "D", "octave": 3, "accidental": "sharp", "type": "half", "length": {"4n": 2}, "position": "0:1:0"},
+        {"pitch": "D", "octave": 3, "accidental": "natural", "type": "half", "length": {"4n": 2}, "position": "0:1:0"},
         {"pitch": "E", "octave": 3, "type": "quarter", "length": {"4n": 1}, "position": "0:3:0"},
     ],
     [
         {"pitch": "F", "octave": 3, "type": "quarter", "length": {"4n": 1}, "position": "0:0:0"},
-        {"pitch": "G", "octave": 3, "type": "quarter", "length": {"4n": 1}, "position": "0:1:0"},
+        {"pitch": "G", "octave": 3, "accidental": "flat", "type": "quarter", "length": {"4n": 1}, "position": "0:1:0"},
         {"pitch": "A", "octave": 3, "type": "quarter", "length": {"4n": 1}, "position": "0:2:0"},
         {"pitch": "B", "octave": 3, "type": "quarter", "length": {"4n": 1}, "position": "0:3:0"},
     ],
