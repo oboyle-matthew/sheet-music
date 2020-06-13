@@ -71,7 +71,7 @@ const NoteContainer = styled.div`
     top: ${props => props.top}px;
     display: flex;
     flex-direction: row;
-    background-color: ${getRandomColor};
+    // background-color: ${getRandomColor};
     width: ${props => props.length}%;
     height: ${props => props.height}px;
 `;

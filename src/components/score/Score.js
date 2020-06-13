@@ -160,12 +160,22 @@ const testNotes = [
     ],
 ];
 
+const pitches = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+
 class Score extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             notes: testNotes,
         }
+    }
+
+    componentWillMount() {
+        document.addEventListener("keydown", this.handleKeyPress.bind(this));
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener("keydown", this.handleKeyPress.bind(this));
     }
 
     selectNote(pitch, octave, position) {
@@ -186,6 +196,38 @@ class Score extends React.Component {
         })
     }
 
+    handleKeyPress = (event) => {
+        const { notes } = this.state;
+        event.preventDefault();
+
+        if(event.key === 'ArrowUp'){
+            const newNotes = notes.map(bar => (
+                bar.map(note => {
+                    if (note.selected) {
+                        note.pitch = pitches[(pitches.indexOf(note.pitch)+1) % pitches.length];
+                    }
+                    return note;
+                })
+            ));
+            this.setState({
+                notes: newNotes,
+            })
+        }
+        if(event.key === 'ArrowDown'){
+            const newNotes = notes.map(bar => (
+                bar.map(note => {
+                    if (note.selected) {
+                        note.pitch = pitches[(pitches.indexOf(note.pitch)-1) % pitches.length];
+                    }
+                    return note;
+                })
+            ));
+            this.setState({
+                notes: newNotes,
+            })
+        }
+    }
+
     render() {
         const { notes } = this.state;
         const barsPerLines = 3;
@@ -194,7 +236,7 @@ class Score extends React.Component {
             splitByBar.push(notes.slice(i, i+barsPerLines));
         }
         return (
-            <div>
+            <div tabIndex={0} onKeyPress={this.handleKeyPress} >
                 <div id={'download'}>
                     {splitByBar.map((bar, i) => <ScoreLine gapBetweenLines={gapBetweenLines} lineWidth={lineWidth} id={i.toString()} notes={bar} />)}
                 </div>
