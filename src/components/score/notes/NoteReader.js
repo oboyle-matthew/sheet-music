@@ -60,7 +60,7 @@ function NoteReader(props) {
     return (
         <NoteContainer left={left} length={length} top={topOffset} height={gapBetweenLines} >
             <Accidental type={note.accidental} accidentalHeight={gapBetweenLines} />
-            <Note type={note.type} label={false} gapBetweenLines={gapBetweenLines} noteName={note.pitch} stem={stem} lineWidth={lineWidth} />
+            <Note selected={note.selected} type={note.type} label={false} gapBetweenLines={gapBetweenLines} noteName={note.pitch} stem={stem} lineWidth={lineWidth} />
         </NoteContainer>
     );
 }

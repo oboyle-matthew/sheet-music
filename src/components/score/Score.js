@@ -45,7 +45,7 @@ const testNotes = [
     [
         {"pitch": "C", "octave": 3, "type": "quarter", "length": {"16n": 4}, "position": "0:0:0"},
         {"pitch": "E", "octave": 3, "accidental": "sharp", "type": "half", "length": {"4n": 2}, "position": "0:1:0"},
-        {"pitch": "G", "octave": 3, "type": "quarter", "length": {"4n": 1}, "position": "0:3:0"},
+        {"pitch": "G", "octave": 3, "type": "quarter", "length": {"4n": 1}, "position": "0:3:0", "selected": true},
     ],
     [
         {"pitch": "rest", "type": "quarter", "length": {"4n": 1}, "position": "1:0:0"},
@@ -160,21 +160,49 @@ const testNotes = [
     ],
 ];
 
-function Score() {
-    const barsPerLines = 3;
-    let splitByBar = [];
-    for (let i = 0; i < testNotes.length; i += barsPerLines) {
-        splitByBar.push(testNotes.slice(i, i+barsPerLines));
+class Score extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            notes: testNotes,
+        }
     }
-    console.log(splitByBar);
-    return (
-        <div>
-            <div id={'download'}>
-                {splitByBar.map((bar, i) => <ScoreLine gapBetweenLines={gapBetweenLines} lineWidth={lineWidth} id={i.toString()} notes={bar} />)}
+
+    selectNote(pitch, octave, position) {
+        const { notes } = this.state;
+        const newNotes = notes.map(bar => (
+            bar.map(note => {
+                if (note.selected) {
+                    delete note.selected
+                }
+                if (note.pitch === pitch && note.octave === octave && note.position === position) {
+                    note.selected = true;
+                }
+                return note;
+            })
+        ));
+        this.setState({
+            notes: newNotes,
+        })
+    }
+
+    render() {
+        const { notes } = this.state;
+        const barsPerLines = 3;
+        let splitByBar = [];
+        for (let i = 0; i < notes.length; i += barsPerLines) {
+            splitByBar.push(notes.slice(i, i+barsPerLines));
+        }
+        return (
+            <div>
+                <div id={'download'}>
+                    {splitByBar.map((bar, i) => <ScoreLine gapBetweenLines={gapBetweenLines} lineWidth={lineWidth} id={i.toString()} notes={bar} />)}
+                </div>
+                <button onClick={takeScreenshot}>Take Screenshot</button>
+                <button onClick={() => this.selectNote("C", 3, "0:0:0")}>Select</button>
             </div>
-            <button onClick={takeScreenshot}>Take Screenshot</button>
-        </div>
-    );
+        );
+    }
 }
 
 export default Score;

@@ -15,27 +15,32 @@ import sixteenthDownStemFlagSVG from "./note_types/generic_notes/flags/sixteenth
 
 
 function Note(props) {
-    const { type, label, gapBetweenLines, noteName, stem, lineWidth } = props;
+    const { type, label, gapBetweenLines, noteName, stem, lineWidth, selected } = props;
     const stemHeight = 3*gapBetweenLines;
     const borderWidth = lineWidth*1.5;
     const noteWidth = gapBetweenLines;
     const noteHeight = gapBetweenLines;
+    let borderColor = 'black';
     let background = 'black';
     if (type === 'half' || type === 'whole') {
         background = 'white';
+    }
+    if (selected) {
+        background = 'orange';
+        borderColor = 'orange';
     }
     let noteStem;
     let noteFlag;
     let src;
     if (type !== 'whole') {
         if (stem === 'up') {
-            noteStem = <UpNoteStem background={background} borderWidth={borderWidth} stemHeight={stemHeight} stemWidth={borderWidth} noteWidth={noteWidth} noteHeight={noteHeight}/>
+            noteStem = <UpNoteStem borderColor={borderColor} borderWidth={borderWidth} stemHeight={stemHeight} stemWidth={borderWidth} noteWidth={noteWidth} noteHeight={noteHeight}/>
             if (type === 'eighth' || type === 'sixteenth') {
                 src = (type === 'eighth') ? eighthUpStemFlagSVG : sixteenthUpStemFlagSVG;
                 noteFlag = <Flag stemHeight={stemHeight} topOffset={noteHeight/2 - stemHeight} src={src} leftOffset={borderWidth*2}  />
             }
         } else if (stem === 'down') {
-            noteStem = <DownNoteStem background={background} borderWidth={borderWidth} stemHeight={stemHeight} stemWidth={borderWidth} noteWidth={noteWidth} noteHeight={noteHeight}/>
+            noteStem = <DownNoteStem borderColor={borderColor} borderWidth={borderWidth} stemHeight={stemHeight} stemWidth={borderWidth} noteWidth={noteWidth} noteHeight={noteHeight}/>
             if (type === 'eighth' || type === 'sixteenth') {
                 src = (type === 'eighth') ? eighthDownStemFlagSVG : sixteenthDownStemFlagSVG;
                 noteFlag = <Flag stemHeight={stemHeight} topOffset={noteHeight / 2} src={src} leftOffset={0}/>
@@ -44,7 +49,7 @@ function Note(props) {
     }
     return (
         <NoteContainer>
-            <TextNoteHead background={background} gapBetweenLines={gapBetweenLines} borderWidth={3} >
+            <TextNoteHead borderColor={borderColor} background={background} gapBetweenLines={gapBetweenLines} borderWidth={3} >
                 {label && noteName}
             </TextNoteHead>
             <Stem>
@@ -68,7 +73,7 @@ const Flag = styled.img`
 const TextNoteHead = styled.div`
     position: absolute;
     border-radius: 200%;
-    border: ${props => props.borderWidth}px solid black;
+    border: ${props => props.borderWidth}px solid ${props => props.borderColor};
     height: ${props => props.gapBetweenLines}px;
     width: ${props => props.gapBetweenLines}px;
     top: -${props => props.borderWidth}px;
@@ -83,7 +88,7 @@ const NoteStem = styled.div`
     position: relative;
     width: ${props => props.stemWidth}px;
     height: ${props => props.stemHeight}px;
-    background: black;
+    background: ${props => props.borderColor};
 `;
 
 const DownNoteStem = styled(NoteStem)`
