@@ -18,18 +18,16 @@ const posToPercentage = (position, timeSig) => {
     const quarters = position.split(":")[1];
     const sixteenths = position.split(":")[2];
     const numberOfSixteenthNotes = timeSig*16;
-    console.log(((parseFloat(quarters) * 4) + parseFloat(sixteenths)));
     const left = (((parseFloat(quarters) * 4) + parseFloat(sixteenths)) / numberOfSixteenthNotes) * 100;
     return left;
 };
 
-const lengthToPercentage = (length) => {
-    // const total = length["4n"] * 25;
+const lengthToPercentage = (length, timeSig) => {
     let total = 0;
     Object.keys(length).map(key => {
         const unit = key.charAt(key.length-1);
         if (unit === "n") {
-            total += length[key] * (1/key.slice(0,-1))
+            total += length[key] * ((1/key.slice(0,-1)) / timeSig);
         } else if (unit === "m") {
             total += length[key] * key.slice(0,-1);
         }
@@ -57,7 +55,7 @@ function NoteReader(props) {
     }
     const topOffset = (top/2) * gapBetweenLines + ((top+2)/2) * lineWidth;
     const left = posToPercentage(note.position, timeSig);
-    const length = lengthToPercentage(note.length);
+    const length = lengthToPercentage(note.length, timeSig);
 
     return (
         <NoteContainer left={left} length={length} top={topOffset} height={gapBetweenLines} >
@@ -73,7 +71,7 @@ const NoteContainer = styled.div`
     top: ${props => props.top}px;
     display: flex;
     flex-direction: row;
-    // background-color: ${getRandomColor};
+    background-color: ${getRandomColor};
     width: ${props => props.length}%;
     height: ${props => props.height}px;
 `;
