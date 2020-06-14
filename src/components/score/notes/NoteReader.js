@@ -14,10 +14,12 @@ const pitchToTop = {
     "D": 1,
 };
 
-const posToPercentage = (position) => {
+const posToPercentage = (position, timeSig) => {
     const quarters = position.split(":")[1];
     const sixteenths = position.split(":")[2];
-    const left = ((parseInt(quarters) * (1/4)) + (parseInt(sixteenths) * (1/16))) * 100;
+    const numberOfSixteenthNotes = timeSig*16;
+    console.log(((parseFloat(quarters) * 4) + parseFloat(sixteenths)));
+    const left = (((parseFloat(quarters) * 4) + parseFloat(sixteenths)) / numberOfSixteenthNotes) * 100;
     return left;
 };
 
@@ -45,7 +47,7 @@ const getRandomColor = () => {
 };
 
 function NoteReader(props) {
-    const { gapBetweenLines, lineWidth, note } = props;
+    const { gapBetweenLines, lineWidth, note, timeSig} = props;
     const top = pitchToTop[note.pitch];
     let stem;
     if (top  < 4) {
@@ -54,7 +56,7 @@ function NoteReader(props) {
         stem = 'up';
     }
     const topOffset = (top/2) * gapBetweenLines + ((top+2)/2) * lineWidth;
-    const left = posToPercentage(note.position);
+    const left = posToPercentage(note.position, timeSig);
     const length = lengthToPercentage(note.length);
 
     return (

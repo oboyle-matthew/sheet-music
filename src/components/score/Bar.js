@@ -19,7 +19,7 @@ const click = (event) => {
 }
 
 function LineInfo(props) {
-    const { lineWidth, gapBetweenLines, width } = props;
+    const { lineWidth, gapBetweenLines, width, timeSig } = props;
     return (
         <BarContainer onClick={click} width={width} gapBetweenLines={gapBetweenLines} lineWidth={lineWidth}>
             {/*{props.notes.map(note => (*/}
@@ -30,8 +30,8 @@ function LineInfo(props) {
                 {/*</div>)*/}
             {/*)}*/}
             {props.notes.map(note => (
-                note.pitch === 'rest' ? <RestReader gapBetweenLines={gapBetweenLines} lineWidth={lineWidth} note={note} /> :
-                    <NoteReader gapBetweenLines={gapBetweenLines} lineWidth={lineWidth} note={note} />
+                note.pitch === 'rest' ? <RestReader timeSig={timeSig} gapBetweenLines={gapBetweenLines} lineWidth={lineWidth} note={note} /> :
+                    <NoteReader timeSig={timeSig} gapBetweenLines={gapBetweenLines} lineWidth={lineWidth} note={note} />
             ))}
         </BarContainer>
     );

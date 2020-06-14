@@ -2,10 +2,12 @@ import React from 'react';
 import styled from 'styled-components'
 import Rest from "./Rest";
 
-const posToPercentage = (position) => {
+const posToPercentage = (position, timeSig) => {
     const quarters = position.split(":")[1];
     const sixteenths = position.split(":")[2];
-    const left = ((parseInt(quarters) * (1/4)) + (parseInt(sixteenths) * (1/16))) * 100;
+    const numberOfSixteenthNotes = timeSig*16;
+    console.log(((parseFloat(quarters) * 4) + parseFloat(sixteenths)));
+    const left = (((parseFloat(quarters) * 4) + parseFloat(sixteenths)) / numberOfSixteenthNotes) * 100;
     return left;
 };
 
@@ -33,8 +35,8 @@ const getRandomColor = () => {
 };
 
 function RestReader(props) {
-    const { gapBetweenLines, lineWidth, note } = props;
-    const left = posToPercentage(note.position);
+    const { gapBetweenLines, lineWidth, note, timeSig } = props;
+    const left = posToPercentage(note.position, timeSig);
     const length = lengthToPercentage(note.length);
     const height = gapBetweenLines*4 + lineWidth*5;
     return (
