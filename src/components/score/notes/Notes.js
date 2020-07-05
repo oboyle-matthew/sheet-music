@@ -38,6 +38,7 @@ function Notes(props) {
                         const left = posToPercentage(note.position);
                         const length = lengthToPercentage(note.length);
 
+
                         return <NoteReaderOLD type={type} lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={top} left={left} length={length}/>
                     })}
                     {/*<NoteReader type={"quarter"} lineWidth={props.lineWidth} gapBetweenLines={props.gapBetweenLines} top={2} left={125} length={100} />*/}

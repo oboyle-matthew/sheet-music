@@ -38,20 +38,25 @@ const getRandomColor = () => {
 function NoteReader(props) {
     const { gapBetweenLines, lineWidth, note, timeSig} = props;
     const top = getDistanceFromTop(note);
-    let stem;
-    if (top  < 4) {
-        stem = 'down';
-    } else {
-        stem = 'up';
-    }
     const topOffset = (top/2) * gapBetweenLines + ((top+2)/2) * lineWidth;
     const left = posToPercentage(note.position, timeSig);
     const length = lengthToPercentage(note.length, timeSig);
+    const noteInfo = {
+        selected: note.selected,
+        type: note.type,
+        label: true,
+        name: note.pitch,
+        stem: note.stem,
+        flag: note.flag,
+        stemConnector: note.stemConnector,
+        width: gapBetweenLines,
+        height: gapBetweenLines,
+    };
 
     return (
         <NoteContainer left={left} length={length} top={topOffset} height={gapBetweenLines} >
             <Accidental type={note.accidental} accidentalHeight={gapBetweenLines} />
-            <Note selected={note.selected} type={note.type} label={true} gapBetweenLines={gapBetweenLines} noteName={note.pitch} stem={stem} lineWidth={lineWidth} />
+            <Note gapBetweenLines={gapBetweenLines} lineWidth={lineWidth} noteInfo={noteInfo} />
         </NoteContainer>
     );
 }

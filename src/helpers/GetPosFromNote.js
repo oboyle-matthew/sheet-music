@@ -18,3 +18,10 @@ export const getDistanceFromTop = (note) => {
     }
     return distanceFromTop;
 };
+
+export const getLeftDistance = (note) => {
+    const { position } = note;
+    const quarters = position.split(":")[1];
+    const sixteenths = position.split(":")[2];
+    return (parseFloat(quarters) * 4) + parseFloat(sixteenths);
+}

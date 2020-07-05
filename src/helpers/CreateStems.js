@@ -1,4 +1,8 @@
-import {getDistanceFromTop} from "./GetPosFromNote";
+import {getDistanceFromTop, getLeftDistance} from "./GetPosFromNote";
+import eighthUpStemFlagSVG from "../data/flags/eighth_up_stem_flag.svg";
+import eighthDownStemFlagSVG from "../data/flags/eighth_down_stem_flag.svg";
+import sixteenthUpStemFlagSVG from "../data/flags/sixteenth_up_stem_flag.svg";
+import sixteenthDownStemFlagSVG from "../data/flags/sixteenth_down_stem_flag.svg";
 
 export const createStems = (bar, timeSig) => {
     // console.log(bar);
@@ -12,9 +16,31 @@ export const createStems = (bar, timeSig) => {
                 getChain(subDiv, beat);
             }
         }
+        beat.forEach(note => {
+            if (!note.stemConnector) {
+                assignStems(note);
+            }
+        })
     });
     console.log(bar);
     return bar;
+};
+
+const assignStems = (note) => {
+    const { type } = note;
+    if (type !== 'whole') {
+        if (getDistanceFromTop(note) < 4) {
+            note.stem = 'down';
+            if (type !== 'quarter' && type !== 'half') {
+                note.flag = (type === 'eighth') ? eighthDownStemFlagSVG : sixteenthDownStemFlagSVG;
+            }
+        } else {
+            note.stem = 'up';
+            if (type !== 'quarter' && type !== 'half') {
+                note.flag = (type === 'eighth') ? eighthUpStemFlagSVG : sixteenthUpStemFlagSVG;
+            }
+        }
+    }
 };
 
 const getChain = (typeIndex, beat) => {
@@ -45,18 +71,31 @@ const getChain = (typeIndex, beat) => {
             if (currChain.notes.length > 1) {
                 const firstElem = currChain.notes[0];
                 const lastElem = currChain.notes[currChain.notes.length-1];
+                // console.log(firstElem);
+                const length = getLeftDistance(lastElem) - getLeftDistance(firstElem);
+                //TODO: Should be length / length of current note
+                const relativeLength = length / 2;
+                console.log(length);
+                console.log(currChain.max);
                 currChain.notes.forEach((note, i) => {
                     if (!note.hasOwnProperty('stemConnector')) {
                         note.stemConnector = [];
                     }
-                    note.stemConnector.push({
-                        location: i === 0 ? 'start' : (i === currChain.notes.length-1 ? 'end' : 'middle'),
-                        from: getDistanceFromTop(firstElem),
-                        to: getDistanceFromTop(lastElem),
-                        min: currChain.min,
-                        max: currChain.max,
-                        type: typeIndex,
-                    });
+                    if (i === 0) {
+                        note.stemConnector.push({
+                            start: true,
+                            length: relativeLength,
+                            height: 10,
+                            transform: 5,
+                            type: typeIndex,
+                        })
+                    } else {
+                        note.stemConnector.push({
+                            start: false,
+                            height: 10 + i,
+                            type: typeIndex,
+                        })
+                    }
                 });
             }
         }
@@ -79,20 +118,9 @@ const getSmallestSubdivision = (beat) => {
 const splitNotesByBeats = (bar, timeSig) => {
     const splitByBeats = [...Array(timeSig[0]).keys()].map(e => []);
     bar.filter(note => note.type !== 'rest').forEach(note => {
-        const { position } = note;
-        const quarters = position.split(":")[1];
-        const sixteenths = position.split(":")[2];
-        const total = (parseFloat(quarters) * 4) + parseFloat(sixteenths);
+        const total = getLeftDistance(note);
         const sixteenthsInBeat = (1/timeSig[1]) * 16;
         splitByBeats[Math.floor(total/sixteenthsInBeat)].push(note);
     });
     return splitByBeats;
-};
-
-const posToPercentage = (position, timeSig) => {
-    const quarters = position.split(":")[1];
-    const sixteenths = position.split(":")[2];
-    const numberOfSixteenthNotes = timeSig*16;
-    const left = (((parseFloat(quarters) * 4) + parseFloat(sixteenths)) / numberOfSixteenthNotes) * 100;
-    return left;
 };
