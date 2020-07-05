@@ -38,7 +38,7 @@ function RestReader(props) {
     const length = lengthToPercentage(note.length, timeSig);
     const height = gapBetweenLines*4 + lineWidth*5;
     return (
-        <RestContainer left={left} length={length} height={height} lineWidth={lineWidth} >
+        <RestContainer left={left} length={length} height={height} lineWidth={lineWidth} posLeft={gapBetweenLines} >
             <Rest type={note.type} gapBetweenLines={gapBetweenLines} lineWidth={lineWidth}  />
         </RestContainer>
     );
@@ -51,6 +51,7 @@ const RestContainer = styled.div`
     flex-direction: row;
     width: ${props => props.length}%;
     height: ${props => props.height}px;
+    margin-left: ${props => props.posLeft}px;
     // background-color: ${getRandomColor};
 `;
 

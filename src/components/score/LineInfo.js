@@ -10,7 +10,7 @@ function LineInfo(props) {
         <LineInfoContainer gapBetweenLines={props.gapBetweenLines} lineWidth={props.lineWidth}>
             <TrebleClef/>
             <KeySignature/>
-            <TimeSignature/>
+            <TimeSignature timeSig={props.timeSig}/>
         </LineInfoContainer>
     );
 }

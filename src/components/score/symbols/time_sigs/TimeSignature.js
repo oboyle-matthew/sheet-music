@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components'
 
-function TimeSignature() {
+function TimeSignature(props) {
+    const { timeSig } = props;
     return (
         <TimeSigContainer>
-            <Top>3</Top>
-            <Bottom>4</Bottom>
+            <Top>{timeSig[0]}</Top>
+            <Bottom>{timeSig[1]}</Bottom>
         </TimeSigContainer>
     );
 }

@@ -2,17 +2,8 @@ import React from 'react';
 import styled from "styled-components";
 import NoteReader from "./NoteReader";
 import NoteReaderOLD from "./NoteReaderOLD";
+import {getDistanceFromTop} from "../../../helpers/GetPosFromNote";
 // {"pitch": "C", "octave": 3, "type": "quarter", "length": {"4n": 1}, "position": "0:0:0"},
-
-const pitchToTop = {
-    "C": 2,
-    "B": 3,
-    "A": 4,
-    "G": 5,
-    "F": 6,
-    "E": 0,
-    "D": 1,
-};
 
 const posToPercentage = (position) => {
     const quarters = position.split(":")[1];
@@ -43,7 +34,7 @@ function Notes(props) {
                     {bar.map(note => {
                         console.log(note.type);
                         const type = note.type;
-                        const top = pitchToTop[note.pitch];
+                        const top = getDistanceFromTop(note);
                         const left = posToPercentage(note.position);
                         const length = lengthToPercentage(note.length);
 

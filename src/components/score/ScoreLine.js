@@ -20,9 +20,9 @@ function ScoreLine(props) {
     const { lineWidth, gapBetweenLines, timeSig } = props;
     return (
         <StaffContainer gapBetweenLines={gapBetweenLines} lineWidth={lineWidth} >
-            <LineInfo lineWidth={lineWidth} gapBetweenLines={gapBetweenLines} />
+            <LineInfo lineWidth={lineWidth} gapBetweenLines={gapBetweenLines} timeSig={timeSig} />
             {props.notes.map(bar => (
-                <Bar timeSig={timeSig} notes={bar} lineWidth={lineWidth} gapBetweenLines={gapBetweenLines} width={100/props.notes.length} />
+                <Bar timeSig={timeSig[0]/timeSig[1]} notes={bar} lineWidth={lineWidth} gapBetweenLines={gapBetweenLines} width={100/props.notes.length} />
             ))}
         </StaffContainer>
     )

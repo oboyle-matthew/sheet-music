@@ -25,7 +25,6 @@ function Accidental(props) {
 const AccidentalContainer = styled.div`
     width: ${props => props.accidentalSize}px;
     height: ${props => props.accidentalSize}px;
-    // background-color: magenta;
 `;
 
 const SharpNaturalImage = styled.img`

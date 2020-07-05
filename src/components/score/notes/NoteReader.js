@@ -3,16 +3,7 @@ import styled from "styled-components";
 import Accidental from "./accidentals/Accidental";
 import Note from "./Note";
 import Rest from "./rests/RestReader";
-
-const pitchToTop = {
-    "C": 2,
-    "B": 3,
-    "A": 4,
-    "G": 5,
-    "F": 6,
-    "E": 0,
-    "D": 1,
-};
+import {getDistanceFromTop} from "../../../helpers/GetPosFromNote";
 
 const posToPercentage = (position, timeSig) => {
     const quarters = position.split(":")[1];
@@ -46,7 +37,7 @@ const getRandomColor = () => {
 
 function NoteReader(props) {
     const { gapBetweenLines, lineWidth, note, timeSig} = props;
-    const top = pitchToTop[note.pitch];
+    const top = getDistanceFromTop(note);
     let stem;
     if (top  < 4) {
         stem = 'down';
@@ -60,7 +51,7 @@ function NoteReader(props) {
     return (
         <NoteContainer left={left} length={length} top={topOffset} height={gapBetweenLines} >
             <Accidental type={note.accidental} accidentalHeight={gapBetweenLines} />
-            <Note selected={note.selected} type={note.type} label={false} gapBetweenLines={gapBetweenLines} noteName={note.pitch} stem={stem} lineWidth={lineWidth} />
+            <Note selected={note.selected} type={note.type} label={true} gapBetweenLines={gapBetweenLines} noteName={note.pitch} stem={stem} lineWidth={lineWidth} />
         </NoteContainer>
     );
 }
@@ -71,7 +62,7 @@ const NoteContainer = styled.div`
     top: ${props => props.top}px;
     display: flex;
     flex-direction: row;
-    background-color: ${getRandomColor};
+    // background-color: ${getRandomColor};
     width: ${props => props.length}%;
     height: ${props => props.height}px;
 `;

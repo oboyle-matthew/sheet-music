@@ -16,8 +16,9 @@ import sixteenthDownStemFlagSVG from "./note_types/generic_notes/flags/sixteenth
 
 function Note(props) {
     const { type, label, gapBetweenLines, noteName, stem, lineWidth, selected } = props;
-    const stemHeight = 3*gapBetweenLines;
     const borderWidth = lineWidth*1.5;
+    const stemHeight = 3*gapBetweenLines;
+    const stemWidth = borderWidth;
     const noteWidth = gapBetweenLines;
     const noteHeight = gapBetweenLines;
     let borderColor = 'black';
@@ -34,13 +35,13 @@ function Note(props) {
     let src;
     if (type !== 'whole') {
         if (stem === 'up') {
-            noteStem = <UpNoteStem borderColor={borderColor} borderWidth={borderWidth} stemHeight={stemHeight} stemWidth={borderWidth} noteWidth={noteWidth} noteHeight={noteHeight}/>
+            noteStem = <UpNoteStem borderColor={borderColor} borderWidth={borderWidth} stemHeight={stemHeight} stemWidth={stemWidth} noteWidth={noteWidth} noteHeight={noteHeight}/>
             if (type === 'eighth' || type === 'sixteenth') {
                 src = (type === 'eighth') ? eighthUpStemFlagSVG : sixteenthUpStemFlagSVG;
                 noteFlag = <Flag stemHeight={stemHeight} topOffset={noteHeight/2 - stemHeight} src={src} leftOffset={borderWidth*2}  />
             }
         } else if (stem === 'down') {
-            noteStem = <DownNoteStem borderColor={borderColor} borderWidth={borderWidth} stemHeight={stemHeight} stemWidth={borderWidth} noteWidth={noteWidth} noteHeight={noteHeight}/>
+            noteStem = <DownNoteStem borderColor={borderColor} borderWidth={borderWidth} stemHeight={stemHeight} stemWidth={stemWidth} noteWidth={noteWidth} noteHeight={noteHeight}/>
             if (type === 'eighth' || type === 'sixteenth') {
                 src = (type === 'eighth') ? eighthDownStemFlagSVG : sixteenthDownStemFlagSVG;
                 noteFlag = <Flag stemHeight={stemHeight} topOffset={noteHeight / 2} src={src} leftOffset={0}/>
@@ -49,7 +50,7 @@ function Note(props) {
     }
     return (
         <NoteContainer>
-            <TextNoteHead borderColor={borderColor} background={background} gapBetweenLines={gapBetweenLines} borderWidth={3} >
+            <TextNoteHead borderColor={borderColor} background={background} gapBetweenLines={gapBetweenLines} borderWidth={borderWidth} >
                 {label && noteName}
             </TextNoteHead>
             <Stem>
