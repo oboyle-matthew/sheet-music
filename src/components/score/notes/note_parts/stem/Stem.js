@@ -7,7 +7,6 @@ function Stem(props) {
     const { borderWidth, noteInfo} = props;
     const stemHeight = noteInfo.height * 3;
     const color = noteInfo.selected ? "orange" : "black";
-    console.log(noteInfo);
     return (
         noteInfo.stem === 'down' ?
             <DownStem flag={noteInfo.flag} noteWidth={noteInfo.width} stemWidth={borderWidth} noteHeight={noteInfo.height} stemHeight={stemHeight} color={color} /> :

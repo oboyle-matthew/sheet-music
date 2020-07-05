@@ -2,7 +2,6 @@ import React from 'react';
 import styled from "styled-components";
 import Accidental from "./accidentals/Accidental";
 import Note from "./Note";
-import Rest from "./rests/RestReader";
 import {getDistanceFromTop} from "../../../helpers/GetPosFromNote";
 
 const posToPercentage = (position, timeSig) => {
@@ -24,7 +23,7 @@ const lengthToPercentage = (length, timeSig) => {
         }
     });
     return total*100;
-}
+};
 
 const getRandomColor = () => {
     var letters = '0123456789ABCDEF';
