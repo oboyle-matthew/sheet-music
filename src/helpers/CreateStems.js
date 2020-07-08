@@ -13,7 +13,7 @@ export const createStems = (bar, timeSig) => {
         if (smallestSubDiv >= 0) {
             // console.log(beat);
             for (let subDiv = 0; subDiv <= smallestSubDiv; subDiv++) {
-                getChain(subDiv, beat);
+                getChain(subDiv, beat, timeSig);
             }
         }
         beat.forEach(note => {
@@ -43,7 +43,7 @@ const assignStems = (note) => {
     }
 };
 
-const getChain = (typeIndex, beat) => {
+const getChain = (typeIndex, beat, timeSig) => {
     for (let i = 0; i < beat.length; i++) {
         const currNote = beat[i];
         if (subDivOrder.indexOf(currNote.type) >= typeIndex) {
@@ -71,11 +71,15 @@ const getChain = (typeIndex, beat) => {
             if (currChain.notes.length > 1) {
                 const firstElem = currChain.notes[0];
                 const lastElem = currChain.notes[currChain.notes.length-1];
-                // console.log(firstElem);
                 const length = getLeftDistance(lastElem) - getLeftDistance(firstElem);
-                //TODO: Should be length / length of current note
-                const relativeLength = length / 2;
+                console.log("Len");
                 console.log(length);
+                console.log(timeSig[0]);
+                console.log(timeSig[1]);
+                // Length of the chain, relative to length of the bar
+                const percentageLength = length / ((timeSig[0] * 16) / timeSig[1]);
+                console.log(percentageLength);
+                console.log(currChain);
                 console.log(currChain.max);
                 currChain.notes.forEach((note, i) => {
                     if (!note.hasOwnProperty('stemConnector')) {
@@ -84,7 +88,7 @@ const getChain = (typeIndex, beat) => {
                     if (i === 0) {
                         note.stemConnector.push({
                             start: true,
-                            length: relativeLength,
+                            length: percentageLength,
                             height: 10,
                             transform: 5,
                             type: typeIndex,
@@ -117,7 +121,8 @@ const getSmallestSubdivision = (beat) => {
 
 const splitNotesByBeats = (bar, timeSig) => {
     const splitByBeats = [...Array(timeSig[0]).keys()].map(e => []);
-    bar.filter(note => note.type !== 'rest').forEach(note => {
+    bar.filter(note => note.pitch !== 'rest').forEach(note => {
+        console.log(note);
         const total = getLeftDistance(note);
         const sixteenthsInBeat = (1/timeSig[1]) * 16;
         splitByBeats[Math.floor(total/sixteenthsInBeat)].push(note);

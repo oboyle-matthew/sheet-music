@@ -14,11 +14,28 @@ const getRandomColor = () => {
 
 function ScoreLine(props) {
     const { lineWidth, gapBetweenLines, timeSig } = props;
+    const connectorWidth = 25;
     return (
         <StaffContainer gapBetweenLines={gapBetweenLines} lineWidth={lineWidth} >
-            {/*<TestContainer>*/}
-                {/*<Test/>*/}
-            {/*</TestContainer>*/}
+            <TestContainer>
+
+                <div style={{width: 500, height: 10}} />
+                <div style={{width: '30%', height: 2*gapBetweenLines}}>
+
+                    <svg style={{width: '100%', height: '100%'}} preserveAspectRatio="none" viewBox="0 0 100 100">
+                        {[-3,-2,-1,0,1,2,3].map(num => {
+                            const bottomLeft = `0, ${50 + connectorWidth/2}`;
+                            const topLeft = `0, ${50 - connectorWidth/2}`;
+                            const topRightPos = (3-num)*connectorWidth/2;
+                            const topRight = `100, ${topRightPos}`;
+                            const bottomRight = `100, ${topRightPos+connectorWidth}`;
+                            const points = [bottomLeft, topLeft, topRight, bottomRight];
+                            return <polygon points={points.join(' ')}
+                                 style={{fill: getRandomColor()}}/>
+                        })}
+                    </svg>
+                </div>
+            </TestContainer>
             <LineInfo lineWidth={lineWidth} gapBetweenLines={gapBetweenLines} timeSig={timeSig} />
             {props.notes.map(bar => (
                 <Bar timeSig={timeSig[0]/timeSig[1]} notes={bar} lineWidth={lineWidth} gapBetweenLines={gapBetweenLines} width={100/props.notes.length} />
@@ -39,21 +56,12 @@ const StaffContainer = styled.div`
 
 const TestContainer = styled.div`
     position: absolute;
-    left: 150px;
-    z-index: 9999999;
-    width: 1000px;
-    background-color: yellow;
-    // top: 50px;
-   
+    left: 166px;
+    top: 35px;
+    z-index: 99999;
 `;
 
-const Test = styled.div`
-    background-color: purple;
-    height: 10px;
-    width: 50%;
-    transform-origin: top left;
-    transform: rotate(5deg) skew(5deg);
-   
+const Test = styled.line`
 `;
 
 export default ScoreLine;
