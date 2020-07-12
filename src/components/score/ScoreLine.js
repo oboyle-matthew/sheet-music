@@ -23,7 +23,7 @@ function ScoreLine(props) {
                 <div style={{width: '30%', height: 2*gapBetweenLines}}>
 
                     <svg style={{width: '100%', height: '100%'}} preserveAspectRatio="none" viewBox="0 0 100 100">
-                        {[-3,-2,-1,0,1,2,3].map(num => {
+                        {[3].map(num => {
                             const bottomLeft = `0, ${50 + connectorWidth/2}`;
                             const topLeft = `0, ${50 - connectorWidth/2}`;
                             const topRightPos = (3-num)*connectorWidth/2;
@@ -31,7 +31,7 @@ function ScoreLine(props) {
                             const bottomRight = `100, ${topRightPos+connectorWidth}`;
                             const points = [bottomLeft, topLeft, topRight, bottomRight];
                             return <polygon points={points.join(' ')}
-                                 style={{fill: getRandomColor()}}/>
+                                 style={{fill: 'black'}}/>
                         })}
                     </svg>
                 </div>

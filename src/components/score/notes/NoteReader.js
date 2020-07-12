@@ -2,7 +2,8 @@ import React from 'react';
 import styled from "styled-components";
 import Accidental from "./accidentals/Accidental";
 import Note from "./Note";
-import {getDistanceFromTop} from "../../../helpers/GetPosFromNote";
+import {getDistanceFromTop, getLeftDistance, getNoteLength} from "../../../helpers/GetPosFromNote";
+import Beams from "./note_parts/beams/Beams";
 
 const posToPercentage = (position, timeSig) => {
     const quarters = position.split(":")[1];
@@ -13,16 +14,7 @@ const posToPercentage = (position, timeSig) => {
 };
 
 const lengthToPercentage = (length, timeSig) => {
-    let total = 0;
-    Object.keys(length).map(key => {
-        const unit = key.charAt(key.length-1);
-        if (unit === "n") {
-            total += length[key] * ((1/key.slice(0,-1)) / timeSig);
-        } else if (unit === "m") {
-            total += length[key] * key.slice(0,-1);
-        }
-    });
-    return total*100;
+    return getNoteLength(length, timeSig) * 100;
 };
 
 const getRandomColor = () => {
@@ -47,7 +39,7 @@ function NoteReader(props) {
         name: note.pitch,
         stem: note.stem,
         flag: note.flag,
-        stemConnector: note.stemConnector,
+        beams: note.beams,
         width: gapBetweenLines,
         height: gapBetweenLines,
     };
@@ -56,6 +48,7 @@ function NoteReader(props) {
         <NoteContainer left={left} length={length} top={topOffset} height={gapBetweenLines} >
             <Accidental type={note.accidental} accidentalHeight={gapBetweenLines} />
             <Note gapBetweenLines={gapBetweenLines} lineWidth={lineWidth} noteInfo={noteInfo} />
+            {noteInfo.beams && <Beams gapBetweenLines={gapBetweenLines} beams={noteInfo.beams} />}
         </NoteContainer>
     );
 }

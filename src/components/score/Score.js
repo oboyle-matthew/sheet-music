@@ -56,9 +56,12 @@ const takeScreenshot = () => {
 
 const testNotes = [
     [
-        {"pitch": "D", "octave": 4, "accidental": "flat", "type": "quarter", "length": {"16n": 4}, "position": "0:0:0"},
-        {"pitch": "E", "octave": 4, "accidental": "sharp", "type": "half", "length": {"4n": 2}, "position": "0:1:0"},
-        {"pitch": "F", "octave": 4, "type": "eighth", "length": {"8n": 1}, "position": "0:3:0", "selected": true},
+        {"pitch": "D", "octave": 4, "accidental": "flat", "type": "eighth", "length": {"8n": 1}, "position": "0:0:0"},
+        {"pitch": "D", "octave": 4, "type": "quarter", "length": {"4n": 1}, "position": "0:0:2"},
+        {"pitch": "D", "octave": 4, "accidental": "sharp", "type": "eighth", "length": {"8n": 1}, "position": "0:1:2"},
+        {"pitch": "D", "octave": 4, "accidental": "natural", "type": "quarter", "length": {"4n": 1}, "position": "0:2:0"},
+        {"pitch": "F", "octave": 4, "type": "sixteenth", "length": {"16n": 1}, "position": "0:3:0", "selected": true},
+        {"pitch": "rest", "type": "eighth", "length": {"16n": 1}, "position": "0:3:1"},
         {"pitch": "G", "octave": 4, "type": "eighth", "length": {"8n": 1}, "position": "0:3:2", "selected": true},
     ],
     [
@@ -88,11 +91,33 @@ const testNotes = [
         {"pitch": "F", "octave": 4, "type": "eighth", "length": {"8n": 1}, "position": "1:2:1"},
         {"pitch": "G", "octave": 4, "type": "sixteenth", "length": {"16n": 1}, "position": "1:2:3"},
         {"pitch": "A", "octave": 4, "type": "sixteenth", "length": {"16n": 1}, "position": "1:3:0"},
-        {"pitch": "B", "octave": 4, "type": "sixteenth", "length": {"16n": 1}, "position": "1:3:1"},
-        {"pitch": "C", "octave": 5, "type": "sixteenth", "length": {"16n": 1}, "position": "1:3:2"},
-        {"pitch": "D", "octave": 5, "type": "sixteenth", "length": {"16n": 1}, "position": "1:3:3"},
-
+        {"pitch": "A", "octave": 4, "type": "thirty-second", "length": {"32n": 1}, "position": "1:3:1"},
+        {"pitch": "B", "octave": 4, "type": "sixteenth", "length": {"16n": 1}, "position": "1:3:1.5"},
+        {"pitch": "C", "octave": 5, "type": "thirty-second", "length": {"32n": 1}, "position": "1:3:2.5"},
+        {"pitch": "A", "octave": 5, "type": "sixteenth", "length": {"16n": 1}, "position": "1:3:3"},
     ],
+    // [
+    //     {"pitch": "A", "octave": 4, "type": "eighth", "length": {"8n": 1}, "position": "0:0:0"},
+    //     {"pitch": "B", "octave": 4, "type": "eighth", "length": {"8n": 1}, "position": "0:0:2"},
+    //     {"pitch": "rest", "type": "eighth", "length": {"8n": 1}, "position": "0:1:0"},
+    //     {"pitch": "D", "octave": 5, "type": "sixteenth", "length": {"16n": 1}, "position": "0:1:2"},
+    //     {"pitch": "E", "octave": 5, "type": "eighth", "length": {"8n": 1}, "position": "0:1:3"},
+    //     {"pitch": "F", "octave": 5, "type": "sixteenth", "length": {"16n": 1}, "position": "0:2:1"},
+    //     {"pitch": "rest", "type": "eighth", "length": {"8n": 1}, "position": "0:2:2"},
+    // ],
+    // [
+    //     {"pitch": "A", "octave": 4, "type": "eighth", "length": {"8n": 1}, "position": "0:0:0"},
+    //     {"pitch": "B", "octave": 4, "type": "eighth", "length": {"8n": 1}, "position": "0:0:2"},
+    //     {"pitch": "rest", "type": "eighth", "length": {"8n": 1}, "position": "0:1:0"},
+    //     {"pitch": "D", "octave": 5, "type": "sixteenth", "length": {"16n": 1}, "position": "0:1:2"},
+    //     {"pitch": "E", "octave": 5, "type": "sixteenth", "length": {"8n": 1}, "position": "0:1:3"},
+    //     {"pitch": "F", "octave": 5, "type": "thirty-second", "length": {"32n": 1}, "position": "0:2:0"},
+    //     {"pitch": "F", "octave": 5, "type": "thirty-second", "length": {"32n": 1}, "position": "0:2:0.5"},
+    //     {"pitch": "F", "octave": 5, "type": "thirty-second", "length": {"32n": 1}, "position": "0:2:1"},
+    //     {"pitch": "F", "octave": 5, "type": "thirty-second", "length": {"32n": 1}, "position": "0:2:1.5"},
+    //     {"pitch": "rest", "type": "eighth", "length": {"8n": 1}, "position": "0:2:2"},
+    //     {"pitch": "rest", "type": "quarter", "length": {"4n": 1}, "position": "0:3:0"},
+    // ],
     // [
     //     {"pitch": "G", "octave": 4, "type": "whole", "length": {"1m": 1}, "position": "1:0:0"},
     // ],
