@@ -111,22 +111,22 @@ const getFirstStemTopPos = (notes, stem, length, beamAngle) => {
     const firstElemTopDistance = getDistanceFromTop(notes[0]);
     let firstStemTopPos;
     if (stem === 'up') {
-        firstStemTopPos = firstElemTopDistance - 5;
+        firstStemTopPos = firstElemTopDistance - 6;
     } else {
-        firstStemTopPos = firstElemTopDistance + 5;
+        firstStemTopPos = firstElemTopDistance + 6;
     }
     notes.forEach((note) => {
         const leftDistance = getLeftDistance(note);
         const heightAtNote = firstStemTopPos + ((leftDistance / length) * beamAngle);
         if (stem === 'up') {
             const diff = getDistanceFromTop(note) - heightAtNote;
-            if (diff < 5) {
-                firstStemTopPos += (diff-5);
+            if (diff < 6) {
+                firstStemTopPos += (diff-6);
             }
         } else {
             const diff = heightAtNote - getDistanceFromTop(note);
-            if (diff < 5) {
-                firstStemTopPos += (5 - diff);
+            if (diff < 6) {
+                firstStemTopPos += (6 - diff);
             }
         }
     });
@@ -155,13 +155,6 @@ const createBeams = (firstElem, notes, beamAngle, timeSig) => {
                     const beamLength = (getLeftDistance(lastChainNote) - getLeftDistance(firstChainNote)) / sixteenthNotesInBar;
                     const firstChainNoteLength = getNoteLength(firstChainNote.length, timeSig[0] / timeSig[1]);
                     const startPos = (getLeftDistance(firstChainNote) - getLeftDistance(firstElem)) / sixteenthNotesInBar;
-                    console.log(chain.notes);
-                    console.log(beamLength);
-                    console.log(firstChainNoteLength);
-                    // console.log(beamLength);
-                    // console.log(firstChainNoteLength);
-                    // console.log(firstChainNote);
-                    // console.log(firstChainNote.stemHeight);
                     firstElem.beams.push({
                         start: startPos / firstChainNoteLength,
                         length: beamLength / firstChainNoteLength,
@@ -173,7 +166,6 @@ const createBeams = (firstElem, notes, beamAngle, timeSig) => {
             })
         }
     });
-    // console.log(notes);
 };
 
 const createEighthBeam = (notes, timeSig) => {
@@ -181,8 +173,6 @@ const createEighthBeam = (notes, timeSig) => {
     const lastElem = notes[notes.length-1];
     const length = getLeftDistance(lastElem) - getLeftDistance(firstElem);
     // Length of the chain, relative to length of the bar
-    // console.log(length);
-    // console.log(((timeSig[0] * 16) / timeSig[1]));
     const beamAngle = getBeamAngle(firstElem, lastElem);
     const stem = getStemPos(notes);
     const firstStemTopPos = getFirstStemTopPos(notes, stem, length, beamAngle);
@@ -196,7 +186,6 @@ const getStemPos = (notes) => {
         totalTopPos += getDistanceFromTop(note);
     });
     const avgTopPos = totalTopPos / notes.length;
-    // console.log(notes);
     // const averageTopPos = currChain.total / currChain.notes.length;
     return avgTopPos < 4 ? "down" : "up";
 };
@@ -258,13 +247,13 @@ const OLDcreateBeams = (typeIndex, beat, timeSig) => {
                         const heightAtNote = firstStemHeight + ((leftDistance / length) * beamAngle);
                         if (stem === 'up') {
                             const diff = getDistanceFromTop(note) - heightAtNote;
-                            if (diff < 5) {
-                                firstStemHeight += (diff-5);
+                            if (diff < 6) {
+                                firstStemHeight += (diff-6);
                             }
                         } else {
                             const diff = heightAtNote - getDistanceFromTop(note);
-                            if (diff < 5) {
-                                firstStemHeight += (5 - diff);
+                            if (diff < 6) {
+                                firstStemHeight += (6 - diff);
                             }
                         }
                     });

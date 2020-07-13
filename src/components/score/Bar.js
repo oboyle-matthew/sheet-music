@@ -31,22 +31,24 @@ const calculateStemConnector = (currNote, nextNote, timeSig) => {
     return null;
 };
 
-function LineInfo(props) {
+function Bar(props) {
     const { lineWidth, gapBetweenLines, width, timeSig } = props;
     return (
         <BarContainer onClick={click} width={width} gapBetweenLines={gapBetweenLines} lineWidth={lineWidth}>
-            {props.notes.map((note, i) => {
-                if (note.pitch === 'rest') {
-                    return <RestReader timeSig={timeSig} gapBetweenLines={gapBetweenLines} lineWidth={lineWidth} note={note}/>
-                } else {
-                    let stemConnector = null;
-                    if (i < props.notes.length-1) {
-                        stemConnector = calculateStemConnector(note, props.notes[i+1], timeSig);
+            <NotesContainer gapBetweenLines={gapBetweenLines}>
+                {props.notes.map((note, i) => {
+                    if (note.pitch === 'rest') {
+                        return <RestReader timeSig={timeSig} gapBetweenLines={gapBetweenLines} lineWidth={lineWidth} note={note}/>
+                    } else {
+                        let stemConnector = null;
+                        if (i < props.notes.length-1) {
+                            stemConnector = calculateStemConnector(note, props.notes[i+1], timeSig);
+                        }
+                        return <NoteReader timeSig={timeSig} gapBetweenLines={gapBetweenLines} lineWidth={lineWidth}
+                                           note={note} stemConnector={stemConnector} />
                     }
-                    return <NoteReader timeSig={timeSig} gapBetweenLines={gapBetweenLines} lineWidth={lineWidth}
-                                       note={note} stemConnector={stemConnector} />
-                }
-            })}
+                })}
+            </NotesContainer>
         </BarContainer>
     );
 }
@@ -54,6 +56,15 @@ function LineInfo(props) {
 const Inner = styled.div`
     
 `
+
+const NotesContainer = styled.div`
+    position: relative;
+    // background-color: pink;
+    // z-index: 99999;
+    // opacity: 0.5;
+    width: calc(100% - ${props => props.gapBetweenLines}px);
+    left: ${props => props.gapBetweenLines}px;
+`;
 
 const BarContainer = styled(Stave)`
     position: relative;
@@ -64,4 +75,4 @@ const BarContainer = styled(Stave)`
     border-right: solid 2px black;
 `;
 
-export default LineInfo;
+export default Bar;

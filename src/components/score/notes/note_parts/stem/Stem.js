@@ -4,8 +4,8 @@ import DownStem from "./stem_types/DownStem";
 import UpStem from "./stem_types/UpStem";
 
 function Stem(props) {
-    const { borderWidth, noteInfo} = props;
-    const stemHeight = noteInfo.height * 3;
+    const { borderWidth, noteInfo, noteHeightMultiplier } = props;
+    const stemHeight = noteHeightMultiplier * noteInfo.stemHeight;
     const color = noteInfo.selected ? "orange" : "black";
     return (
         noteInfo.stem === 'down' ?

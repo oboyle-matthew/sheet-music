@@ -1,20 +1,15 @@
 import React from 'react';
 import styled from "styled-components";
 
-// function Beam(props) {
-//     const { beam } = props;
-//     return <div>
-//         Beam
-//     </div>
-// }
-
 const Beam = styled.div`
     background-color: red;
-    position: relative;
-    height: 100px;
-    opacity: 0.3;
+    position: absolute;
+    height: ${props => props.height}px;
+    opacity: 0.5;
     width: ${props => props.length*100}%;
-    left: ${props => props.start*100}%;
+    left: calc(${props => props.start*100}% + ${props => props.startOffset}px);
+    // top: 0px;
+    top: ${props => props.topPos}px;
 `;
 
 export default Beam;

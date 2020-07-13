@@ -38,6 +38,7 @@ function NoteReader(props) {
         label: true,
         name: note.pitch,
         stem: note.stem,
+        stemHeight: note.stemHeight ? note.stemHeight : 6,
         flag: note.flag,
         beams: note.beams,
         width: gapBetweenLines,
@@ -46,9 +47,8 @@ function NoteReader(props) {
 
     return (
         <NoteContainer left={left} length={length} top={topOffset} height={gapBetweenLines} >
-            <Accidental type={note.accidental} accidentalHeight={gapBetweenLines} />
+            {/*<Accidental type={note.accidental} accidentalHeight={gapBetweenLines} />*/}
             <Note gapBetweenLines={gapBetweenLines} lineWidth={lineWidth} noteInfo={noteInfo} />
-            {noteInfo.beams && <Beams gapBetweenLines={gapBetweenLines} beams={noteInfo.beams} />}
         </NoteContainer>
     );
 }
