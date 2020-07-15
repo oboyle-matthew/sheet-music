@@ -4,7 +4,6 @@ import styled from "styled-components";
 function Beam(props) {
     const { beamWidth, topPos, length, start, startOffset, angle, borderWidth, beamLength, beamOffset} = props;
     const containerHeight = beamWidth * 8;
-    console.log(beamOffset);
     return <BeamContainer borderWidth={borderWidth} height={containerHeight} length={length} topPos={topPos} start={start} startOffset={startOffset}>
 
         <BeamSVG preserveAspectRatio="none" viewBox="0 0 100 100">
@@ -26,7 +25,7 @@ function Beam(props) {
                 const bottomRight = `${rightPos}, ${currBottomRightPos}`;
 
 
-                
+
                 const points = [bottomLeft, topLeft, topRight, bottomRight];
                 return <polygon points={points.join(' ')}
                                 style={{fill: 'black'}}/>

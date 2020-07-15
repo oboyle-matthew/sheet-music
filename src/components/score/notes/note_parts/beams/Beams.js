@@ -18,7 +18,6 @@ function Beams(props) {
             if (stem === 'up') {
                 topPos *= -1;
             }
-            console.log(beamLength);
             return <Beam beamOffset={beamOffset}
                          beamLength={beamLength}
                          borderWidth={borderWidth}
