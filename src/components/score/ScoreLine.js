@@ -20,18 +20,48 @@ function ScoreLine(props) {
             <TestContainer>
 
                 <div style={{width: 500, height: 10}} />
-                <div style={{width: '30%', height: 2*gapBetweenLines}}>
+                <div style={{width: '30%', height: 2*gapBetweenLines, backgroundColor: 'green', opacity: 0.5}}>
 
                     <svg style={{width: '100%', height: '100%'}} preserveAspectRatio="none" viewBox="0 0 100 100">
                         {[3].map(num => {
                             const bottomLeft = `0, ${50 + connectorWidth/2}`;
                             const topLeft = `0, ${50 - connectorWidth/2}`;
-                            const topRightPos = (3-num)*connectorWidth/2;
+                            const topRightPos = (3+num)*connectorWidth/2;
                             const topRight = `100, ${topRightPos}`;
                             const bottomRight = `100, ${topRightPos+connectorWidth}`;
                             const points = [bottomLeft, topLeft, topRight, bottomRight];
                             return <polygon points={points.join(' ')}
                                  style={{fill: 'black'}}/>
+                        })}
+                        {[3].map(num => {
+                            const beamOffset = 0.1;
+                            const beamLength = 0.2;
+                            const leftPos = beamOffset*100;
+                            const rightPos = leftPos + beamLength*100;
+                            const totalTopLeftPos = 50 - connectorWidth/2;
+                            const totalTopRightPos = (3+num)*connectorWidth/2;
+                            const currTopLeftPos = totalTopLeftPos + ((totalTopRightPos - totalTopLeftPos) * beamOffset);
+                            const currBottomLeftPos = currTopLeftPos + connectorWidth;
+                            const currTopRightPos = totalTopLeftPos + ((totalTopRightPos - totalTopLeftPos) * (beamOffset+beamLength));
+                            const currBottomRightPos = currTopRightPos + connectorWidth;
+
+
+
+
+
+
+
+
+                            const bottomLeft = `${leftPos}, ${currBottomLeftPos}`;
+                            const topLeft = `${leftPos}, ${currTopLeftPos}`;
+
+
+
+                            const topRight = `${rightPos}, ${currTopRightPos}`;
+                            const bottomRight = `${rightPos}, ${currBottomRightPos}`;
+                            const points = [bottomLeft, topLeft, topRight, bottomRight];
+                            return <polygon points={points.join(' ')}
+                                            style={{fill: 'red', opacity: 0.5}}/>
                         })}
                     </svg>
                 </div>
@@ -45,8 +75,8 @@ function ScoreLine(props) {
 }
 
 const StaffContainer = styled.div`
-    padding-top: ${props => props.gapBetweenLines*2}px;
-    padding-bottom: ${props => props.gapBetweenLines*2}px;
+    padding-top: ${props => props.gapBetweenLines*5}px;
+    padding-bottom: ${props => props.gapBetweenLines*5}px;
     // background-color: ${getRandomColor};
     width: 100%;
     height: ${props => (props.lineWidth*5+props.gapBetweenLines*4)}px;

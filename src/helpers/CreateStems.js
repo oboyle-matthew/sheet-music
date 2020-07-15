@@ -153,13 +153,22 @@ const createBeams = (firstElem, notes, beamAngle, timeSig) => {
                     const firstChainNote = chain.notes[0];
                     const lastChainNote = chain.notes[chain.notes.length-1];
                     const beamLength = (getLeftDistance(lastChainNote) - getLeftDistance(firstChainNote)) / sixteenthNotesInBar;
-                    const firstChainNoteLength = getNoteLength(firstChainNote.length, timeSig[0] / timeSig[1]);
+                    const firstElemNoteLength = getNoteLength(firstElem.length, timeSig[0] / timeSig[1]);
                     const startPos = (getLeftDistance(firstChainNote) - getLeftDistance(firstElem)) / sixteenthNotesInBar;
+                    console.log(firstChainNote);
+                    console.log(firstElem);
+                    const topDiff = getDistanceFromTop(firstChainNote) - getDistanceFromTop(firstElem);
+                    let height = firstChainNote.stemHeight - (chain.type*1.5);
+                    if (firstChainNote.stem === 'up') {
+                        height -= topDiff;
+                    } else {
+                        height += topDiff;
+                    }
                     firstElem.beams.push({
-                        start: startPos / firstChainNoteLength,
-                        length: beamLength / firstChainNoteLength,
+                        start: startPos / firstElemNoteLength,
+                        length: beamLength / firstElemNoteLength,
                         angle: beamAngle,
-                        height: firstChainNote.stemHeight - chain.type,
+                        height: height,
                     });
                 }
 

@@ -3,17 +3,33 @@ import styled from "styled-components";
 import Beam from "./Beam";
 
 function Beams(props) {
-    const { beams, noteHeightMultiplier, stem, noteWidth } = props;
+    const { beams, noteHeightMultiplier, stem, noteWidth, borderWidth } = props;
+    const start = beams[0].start;
+    let startOffset = 0;
+    if (stem === 'up') {
+        startOffset = noteWidth + borderWidth
+    }
+    const totalLength = beams[0].length;
     return <BeamsContainer >
-        {beams.map(beam => {
+        {beams.map((beam, i) => {
+            const beamOffset = (beam.start - start) / totalLength;
+            const beamLength = beam.length / totalLength;
             let topPos = beam.height * noteHeightMultiplier;
-            const start = beam.start;
-            let startOffset = 0;
             if (stem === 'up') {
                 topPos *= -1;
-                startOffset = noteWidth
             }
-            return <Beam length={beam.length} start={start} startOffset={startOffset} topPos={topPos} height={noteHeightMultiplier}/>
+            console.log(beamLength);
+            return <Beam beamOffset={beamOffset}
+                         beamLength={beamLength}
+                         borderWidth={borderWidth}
+                         angle={beam.angle}
+                         beamWidth={noteHeightMultiplier}
+                         length={totalLength}
+                         start={start}
+                         startOffset={startOffset}
+                         topPos={topPos}
+                         height={noteHeightMultiplier}
+            />
         })}
     </BeamsContainer>
 }

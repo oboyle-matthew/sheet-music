@@ -5,7 +5,7 @@ import jsPDF from "jspdf";
 import {createStems} from "../../helpers/CreateStems";
 
 const lineWidth = 1;
-const gapBetweenLines = 15;
+const gapBetweenLines = 20;
 const barsPerLines = 2;
 const linesPerPageOfPdf = 3;
 const timeSig = [2,2];
@@ -121,13 +121,13 @@ const testNotes = [
     // [
     //     {"pitch": "G", "octave": 4, "type": "whole", "length": {"1m": 1}, "position": "1:0:0"},
     // ],
-    // [
-    //     {"pitch": "D", "octave": 4, "type": "quarter", "length": {"4n": 1}, "position": "0:0:0"},
-    //     {"pitch": "F", "octave": 4, "type": "eighth", "length": {"8n": 1}, "position": "0:1:0"},
-    //     {"pitch": "A", "octave": 4, "type": "quarter", "length": {"4n": 1}, "position": "0:1:2"},
-    //     {"pitch": "D", "octave": 5, "type": "eighth", "length": {"8n": 1}, "position": "0:2:2"},
-    //     {"pitch": "F", "octave": 5, "type": "quarter", "length": {"4n": 1}, "position": "0:3:0"},
-    // ],
+    [
+        {"pitch": "D", "octave": 4, "type": "quarter", "length": {"4n": 1}, "position": "0:0:0"},
+        {"pitch": "F", "octave": 4, "type": "eighth", "length": {"8n": 1}, "position": "0:1:0"},
+        {"pitch": "A", "octave": 4, "type": "quarter", "length": {"4n": 1}, "position": "0:1:2"},
+        {"pitch": "D", "octave": 5, "type": "eighth", "length": {"8n": 1}, "position": "0:2:2"},
+        {"pitch": "F", "octave": 5, "type": "quarter", "length": {"4n": 1}, "position": "0:3:0"},
+    ],
     // [
     //     {"pitch": "F", "octave": 4, "type": "quarter", "length": {"4n": 1}, "position": "0:0:0"},
     //     {"pitch": "G", "octave": 4, "type": "quarter", "length": {"4n": 1}, "position": "0:1:0"},
@@ -184,14 +184,16 @@ const testNotes = [
     // [
     //     {"pitch": "rest", "type": "whole", "length": {"1n": 1}, "position": "2:0:0"},
     // ],
-    // [
-    //     {"pitch": "C", "octave": 4, "type": "eighth", "length": {"8n": 1}, "position": "0:0:0"},
-    //     {"pitch": "D", "octave": 4, "type": "eighth", "length": {"8n": 1}, "position": "0:0:2"},
-    //     {"pitch": "E", "octave": 4, "type": "eighth", "length": {"8n": 1}, "position": "0:1:0"},
-    //     {"pitch": "F", "octave": 4, "type": "eighth", "length": {"8n": 1}, "position": "0:1:2"},
-    //     {"pitch": "G", "octave": 4, "type": "eighth", "length": {"8n": 1}, "position": "0:2:0"},
-    //     {"pitch": "A", "octave": 4, "type": "eighth", "length": {"8n": 1}, "position": "0:2:2"},
-    // ],
+    [
+        {"pitch": "C", "octave": 4, "type": "eighth", "length": {"8n": 1}, "position": "0:0:0"},
+        {"pitch": "D", "octave": 4, "type": "eighth", "length": {"8n": 1}, "position": "0:0:2"},
+        {"pitch": "E", "octave": 4, "type": "eighth", "length": {"8n": 1}, "position": "0:1:0"},
+        {"pitch": "F", "octave": 4, "type": "eighth", "length": {"8n": 1}, "position": "0:1:2"},
+        {"pitch": "G", "octave": 4, "type": "eighth", "length": {"8n": 1}, "position": "0:2:0"},
+        {"pitch": "D", "octave": 5, "type": "eighth", "length": {"8n": 1}, "position": "0:2:2"},
+        {"pitch": "G", "octave": 4, "type": "eighth", "length": {"8n": 1}, "position": "0:3:0"},
+        {"pitch": "E", "octave": 4, "type": "eighth", "length": {"8n": 1}, "position": "0:3:2"},
+    ],
     // [
     //     {"pitch": "B", "octave": 4, "type": "eighth", "length": {"8n": 1}, "position": "1:0:0"},
     //     {"pitch": "C", "octave": 4, "type": "eighth", "length": {"8n": 1}, "position": "1:0:2"},
