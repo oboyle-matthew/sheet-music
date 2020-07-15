@@ -146,22 +146,38 @@ const assignStemInfo = (notes, stem, length, beamAngle, firstStemTopPos) => {
 const createBeams = (firstElem, notes, beamAngle, timeSig) => {
     const sixteenthNotesInBar = (timeSig[0] * 16) / timeSig[1];
     firstElem.beams = [];
-    notes.forEach(note => {
+    notes.forEach((note, i) => {
         if (note.chains) {
             note.chains.forEach(chain => {
+                const firstChainNote = chain.notes[0];
+                const firstElemNoteLength = getNoteLength(firstElem.length, timeSig[0] / timeSig[1]);
+                const startPos = (getLeftDistance(firstChainNote) - getLeftDistance(firstElem)) / sixteenthNotesInBar;
+                const height = firstElem.stemHeight - (chain.type * 1.5);
                 if (chain.notes.length > 1) {
-                    const firstChainNote = chain.notes[0];
                     const lastChainNote = chain.notes[chain.notes.length-1];
                     const beamLength = (getLeftDistance(lastChainNote) - getLeftDistance(firstChainNote)) / sixteenthNotesInBar;
-                    const firstElemNoteLength = getNoteLength(firstElem.length, timeSig[0] / timeSig[1]);
-                    const startPos = (getLeftDistance(firstChainNote) - getLeftDistance(firstElem)) / sixteenthNotesInBar;
-                    const height = firstElem.stemHeight - (chain.type * 1.5);
                     firstElem.beams.push({
                         start: startPos / firstElemNoteLength,
                         length: beamLength / firstElemNoteLength,
                         angle: beamAngle,
                         height: height,
                     });
+                } else {
+                    if (i === 0) {
+                        firstElem.beams.push({
+                            start: startPos / firstElemNoteLength,
+                            length: 0.5,
+                            angle: beamAngle,
+                            height: height,
+                        });
+                    } else {
+                        firstElem.beams.push({
+                            start: (startPos / firstElemNoteLength)-0.5,
+                            length: 0.5,
+                            angle: beamAngle,
+                            height: height,
+                        });
+                    }
                 }
 
             })
