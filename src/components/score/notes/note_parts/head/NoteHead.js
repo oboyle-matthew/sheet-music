@@ -3,13 +3,14 @@ import styled from "styled-components";
 
 function NoteHead(props) {
     const { noteInfo, borderWidth } = props;
-    let background = 'black';
+    let background = noteInfo.selected ? "orange" : "black";
     if (noteInfo.type === 'half' || noteInfo.type === 'whole') {
         background = 'white';
     }
+    const borderColor = noteInfo.selected ? "orange" : "black";
     // TODO: Handle differently for text note head and non-text
     return (
-        <TextNoteHead borderColor={'black'} background={background} width={noteInfo.width} height={noteInfo.height} borderWidth={borderWidth} >
+        <TextNoteHead className={'note-head'} borderColor={borderColor} background={background} width={noteInfo.width} height={noteInfo.height} borderWidth={borderWidth} >
             {noteInfo.label && noteInfo.name}
         </TextNoteHead>
     )
@@ -27,6 +28,7 @@ const TextNoteHead = styled.div`
     line-height: ${props => props.height-props.borderWidth}px;
     text-align: center;
     font-size: ${props => props.height*0.9}px;
+    cursor: default;
 `;
 
 export default NoteHead;

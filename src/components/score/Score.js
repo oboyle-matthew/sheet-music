@@ -3,6 +3,7 @@ import ScoreLine from "./ScoreLine";
 import domtoimage from "dom-to-image";
 import jsPDF from "jspdf";
 import {createStems} from "../../helpers/CreateStems";
+import {decrementNotePitch, incrementNotePitch} from "../../helpers/GetPosFromNote";
 
 const lineWidth = 1;
 const gapBetweenLines = 20;
@@ -94,7 +95,7 @@ const testNotes = [
         {"pitch": "A", "octave": 4, "type": "thirty-second", "length": {"32n": 1}, "position": "1:3:1"},
         {"pitch": "B", "octave": 4, "type": "sixteenth", "length": {"16n": 1}, "position": "1:3:1.5"},
         {"pitch": "C", "octave": 5, "type": "thirty-second", "length": {"32n": 1}, "position": "1:3:2.5"},
-        {"pitch": "A", "octave": 5, "type": "sixteenth", "length": {"16n": 1}, "position": "1:3:3"},
+        {"pitch": "A", "octave": 5, "type": "sixteenth", "length": {"16n": 1}, "position": "1:3:3", selected: true},
     ],
     [
         {"pitch": "A", "octave": 4, "type": "eighth", "length": {"8n": 1}, "position": "0:0:0"},
@@ -337,7 +338,7 @@ class Score extends React.Component {
         super(props);
         this.state = {
             notes: [],
-        }
+        };
     }
 
     createStemConnectors(notes) {
@@ -350,7 +351,6 @@ class Score extends React.Component {
     componentWillMount() {
         document.addEventListener("keydown", this.handleKeyPress.bind(this));
         const notes = this.createStemConnectors(testNotes);
-        console.log(notes);
         this.setState({notes})
     }
 
@@ -376,53 +376,57 @@ class Score extends React.Component {
         })
     }
 
-    handleKeyPress = (event) => {
-        //TODO: Change octaves too
+    updateNotes = (method) => {
         const { notes } = this.state;
+        const newNotes = notes.map(bar => {
+            let newBar = bar.map(note => {
+                if (note.selected) {
+                    note.stem = null;
+                    method(note);
+                }
+                return note;
+            });
+            createStems(newBar, timeSig);
+            return newBar
+        });
+        this.setState({
+            notes: newNotes,
+        })
+    };
 
+    handleKeyPress = (event) => {
         if(event.key === 'ArrowUp'){
             event.preventDefault();
-            const newNotes = notes.map(bar => (
-                bar.map(note => {
-                    if (note.selected) {
-                        note.pitch = pitches[(pitches.indexOf(note.pitch)+pitches.length+1) % pitches.length];
-                    }
-                    return note;
-                })
-            ));
-            this.setState({
-                notes: newNotes,
-            })
+            this.updateNotes(incrementNotePitch)
         }
         if(event.key === 'ArrowDown'){
             event.preventDefault();
-            const newNotes = notes.map(bar => (
-                bar.map(note => {
-                    if (note.selected) {
-                        note.pitch = pitches[(pitches.indexOf(note.pitch)+pitches.length-1) % pitches.length];
-                    }
-                    return note;
-                })
-            ));
-            this.setState({
-                notes: newNotes,
-            })
+            this.updateNotes(decrementNotePitch)
         }
+    };
+
+    addEmptyBar = () => {
+        const { notes } = this.state;
+        const wholeRest = {"pitch": "rest", "type": "whole", "length": {"1n": 1}, "position": "2:0:0"};
+            this.setState({
+            notes: [...notes, [wholeRest]]
+        })
     };
 
     render() {
         const { notes } = this.state;
-        let splitByBar = [];
+        const splitByLine = [];
         for (let i = 0; i < notes.length; i += barsPerLines) {
-            splitByBar.push(notes.slice(i, i+barsPerLines));
+            splitByLine.push(notes.slice(i, i+barsPerLines));
         }
         return (
             <div tabIndex={0} onKeyPress={this.handleKeyPress} >
                 <div style={{backgroundColor: 'white'}} id={'download'}>
-                    {splitByBar.map((bar, i) => <ScoreLine timeSig={timeSig} gapBetweenLines={gapBetweenLines} lineWidth={lineWidth} id={i.toString()} notes={bar} />)}
+                    {splitByLine.map((line, i) => <ScoreLine timeSig={timeSig} gapBetweenLines={gapBetweenLines} lineWidth={lineWidth} id={i.toString()} notes={line} />)}
                 </div>
                 <button onClick={takeScreenshot}>Take Screenshot</button>
                 <button onClick={() => this.selectNote("C", 3, "0:0:0")}>Select</button>
+                <button onClick={this.addEmptyBar}>Add bar</button>
             </div>
         );
     }

@@ -5,7 +5,6 @@ import HalfRest from "./rest_types/HalfRest";
 import QuarterRest from "./rest_types/QuarterRest";
 import EighthRest from "./rest_types/EighthRest";
 
-
 function Rest(props) {
     const { type, gapBetweenLines, lineWidth } = props;
     let rest;

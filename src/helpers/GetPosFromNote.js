@@ -8,6 +8,8 @@ const pitchToTop = {
     "F": 6,
 };
 
+const notes = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+
 export const getDistanceFromTop = (note) => {
     const pitch = pitchToTop[note.pitch];
     let distanceFromTop = pitch;
@@ -18,6 +20,20 @@ export const getDistanceFromTop = (note) => {
     }
     return distanceFromTop;
 };
+
+export const incrementNotePitch = (note) => {
+    if (note.pitch === 'B') {
+        note.octave++;
+    }
+    note.pitch = notes[(notes.indexOf(note.pitch) + 1) % notes.length]
+};
+
+export const decrementNotePitch = (note) => {
+    if (note.pitch === 'C') {
+        note.octave--;
+    }
+    note.pitch = notes[(notes.indexOf(note.pitch) + notes.length - 1) % notes.length]
+}
 
 export const getLeftDistance = (note) => {
     const { position } = note;

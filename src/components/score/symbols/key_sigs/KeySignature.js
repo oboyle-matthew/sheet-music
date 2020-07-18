@@ -27,7 +27,6 @@ const KeySigContainer = styled.div`
 `;
 
 const Sharp = styled.div`
-    z-index: 100;
     margin-top: ${props => props.offset}px;
     margin-left: -${props => props.fontSize/5}px;
     //background-color: pink;
@@ -38,7 +37,6 @@ const Sharp = styled.div`
 `;
 
 const OldSharp = styled.div`
-    z-index: 100;
     margin-left: -15px;
     margin-top: ${props => props.offset}px;
     font-size: ${props => props.fontSize}px;

@@ -6,7 +6,8 @@ import UpStem from "./stem_types/UpStem";
 function Stem(props) {
     const { borderWidth, noteInfo, noteHeightMultiplier } = props;
     const stemHeight = noteHeightMultiplier * noteInfo.stemHeight;
-    const color = noteInfo.selected ? "orange" : "black";
+    const color = 'black';
+    // const color = noteInfo.selected ? "orange" : "black";
     return (
         noteInfo.stem === 'down' ?
             <DownStem flag={noteInfo.flag} noteWidth={noteInfo.width} stemWidth={borderWidth} noteHeight={noteInfo.height} stemHeight={stemHeight} color={color} /> :

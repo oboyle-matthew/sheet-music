@@ -7,6 +7,7 @@ import Stave from "./Stave";
 import NoteReader from "./notes/NoteReader";
 import RestReader from "./notes/rests/RestReader";
 import {getDistanceFromTop} from "../../helpers/GetPosFromNote";
+import {getRandomColor} from "../../helpers/RandomColor";
 
 const click = (event) => {
     console.log(event.target.classList);
@@ -26,15 +27,13 @@ const calculateStemConnector = (currNote, nextNote, timeSig) => {
             const diff = getDistanceFromTop(currNote) - getDistanceFromTop(nextNote);
         }
     }
-    // console.log(currNote.position);
-    // console.log(nextNote.position);
     return null;
 };
 
 function Bar(props) {
     const { lineWidth, gapBetweenLines, width, timeSig } = props;
     return (
-        <BarContainer onClick={click} width={width} gapBetweenLines={gapBetweenLines} lineWidth={lineWidth}>
+        <BarContainer width={width} gapBetweenLines={gapBetweenLines} lineWidth={lineWidth}>
             <NotesContainer gapBetweenLines={gapBetweenLines}>
                 {props.notes.map((note, i) => {
                     if (note.pitch === 'rest') {
@@ -59,8 +58,7 @@ const Inner = styled.div`
 
 const NotesContainer = styled.div`
     position: relative;
-    // background-color: pink;
-    // z-index: 99999;
+    // background-color: ${getRandomColor()};
     // opacity: 0.5;
     width: calc(100% - ${props => props.gapBetweenLines}px);
     left: ${props => props.gapBetweenLines}px;

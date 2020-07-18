@@ -1,13 +1,16 @@
 import React from 'react';
 import styled from "styled-components";
-import {GenericStem} from "./GenericStem";
+import GenericStem from "./GenericStem";
 import UpStemFlag from "../../flag/UpStemFlag";
 
 function UpStem(props) {
     const { stemHeight, noteHeight, color, stemWidth, noteWidth, flag} = props;
+    const top = noteHeight/2 - stemHeight;
+    const left = noteWidth + stemWidth;
+    const borderRadius = '0 0 100px 0';
     return (
         <StemContainer>
-            <Stem stemWidth={stemWidth} stemHeight={stemHeight} noteHeight={noteHeight} color={color} noteWidth={noteWidth} />
+            <GenericStem stemWidth={stemWidth} stemHeight={stemHeight} color={color} top={top} left={left} borderRadius={borderRadius} />
             {flag && <UpStemFlag noteHeight={noteHeight} stemHeight={stemHeight} stemWidth={stemWidth} flag={flag} />}
         </StemContainer>
     )
@@ -15,12 +18,6 @@ function UpStem(props) {
 
 const StemContainer = styled.div`
     position: absolute;
-`;
-
-const Stem = styled(GenericStem)`
-    top: ${props => props.noteHeight/2 - props.stemHeight}px;
-    left: ${props => props.noteWidth + props.stemWidth}px;
-    border-radius: 0 0 100px 0;
 `;
 
 export default UpStem;
