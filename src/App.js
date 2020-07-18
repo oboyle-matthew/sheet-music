@@ -1,11 +1,14 @@
 import React from 'react';
 import './App.css';
-import Score from "./components/score/Score";
+import 'antd/dist/antd.css'
+import SheetMusic from "./views/score/components/sheet_music/SheetMusic";
+// import Score from "./components/score/Score";
 
 function App() {
   return (
     <div>
-        <Score/>
+        <SheetMusic/>
+        {/*<Score/>*/}
     </div>
   );
 }

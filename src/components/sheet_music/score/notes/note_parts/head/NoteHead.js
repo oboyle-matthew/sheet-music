@@ -29,6 +29,7 @@ const TextNoteHead = styled.div`
     text-align: center;
     font-size: ${props => props.height*0.9}px;
     cursor: default;
+    user-select: none;
 `;
 
 export default NoteHead;

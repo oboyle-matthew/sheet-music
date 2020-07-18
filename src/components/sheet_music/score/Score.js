@@ -395,27 +395,9 @@ class Score extends React.Component {
         })
     };
 
-    // selectNote(pitch, octave, position) {
-    //     const { notes } = this.state;
-    //     const newNotes = notes.map(bar => (
-    //         bar.map(note => {
-    //             if (note.selected) {
-    //                 delete note.selected
-    //             }
-    //             if (note.pitch === pitch && note.octave === octave && note.position === position) {
-    //                 note.selected = true;
-    //             }
-    //             return note;
-    //         })
-    //     ));
-    //     this.setState({
-    //         notes: newNotes,
-    //     })
-    // }
-
     selectNote = (event, selectedNote) => {
         const { notes } = this.state;
-        console.log(selectedNote);
+        //TODO: If stem: Select for whole note. Otherwise, just have an individual select for the specific notes
         if (event.target.classList.contains('note-head')) {
             console.log("note-head");
         } else if (event.target.classList.contains('stem')) {
