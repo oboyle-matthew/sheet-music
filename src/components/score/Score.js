@@ -358,24 +358,6 @@ class Score extends React.Component {
         document.removeEventListener("keydown", this.handleKeyPress.bind(this));
     }
 
-    selectNote(pitch, octave, position) {
-        const { notes } = this.state;
-        const newNotes = notes.map(bar => (
-            bar.map(note => {
-                if (note.selected) {
-                    delete note.selected
-                }
-                if (note.pitch === pitch && note.octave === octave && note.position === position) {
-                    note.selected = true;
-                }
-                return note;
-            })
-        ));
-        this.setState({
-            notes: newNotes,
-        })
-    }
-
     updateNotes = (method) => {
         const { notes } = this.state;
         const newNotes = notes.map(bar => {
@@ -413,6 +395,49 @@ class Score extends React.Component {
         })
     };
 
+    // selectNote(pitch, octave, position) {
+    //     const { notes } = this.state;
+    //     const newNotes = notes.map(bar => (
+    //         bar.map(note => {
+    //             if (note.selected) {
+    //                 delete note.selected
+    //             }
+    //             if (note.pitch === pitch && note.octave === octave && note.position === position) {
+    //                 note.selected = true;
+    //             }
+    //             return note;
+    //         })
+    //     ));
+    //     this.setState({
+    //         notes: newNotes,
+    //     })
+    // }
+
+    selectNote = (event, selectedNote) => {
+        const { notes } = this.state;
+        console.log(selectedNote);
+        if (event.target.classList.contains('note-head')) {
+            console.log("note-head");
+        } else if (event.target.classList.contains('stem')) {
+            console.log('stem');
+        } else if (event.target.classList.contains('beam')) {
+            console.log('beam');
+        }
+        const newNotes = notes.map(bar => (
+            bar.map(note => {
+                if (note === selectedNote) {
+                    note.selected = true;
+                } else {
+                    delete note.selected;
+                }
+                return note;
+            })
+        ));
+        this.setState({
+            note: newNotes,
+        })
+    };
+
     render() {
         const { notes } = this.state;
         const splitByLine = [];
@@ -422,10 +447,10 @@ class Score extends React.Component {
         return (
             <div tabIndex={0} onKeyPress={this.handleKeyPress} >
                 <div style={{backgroundColor: 'white'}} id={'download'}>
-                    {splitByLine.map((line, i) => <ScoreLine timeSig={timeSig} gapBetweenLines={gapBetweenLines} lineWidth={lineWidth} id={i.toString()} notes={line} />)}
+                    {splitByLine.map((line, i) => <ScoreLine selectNote={this.selectNote} timeSig={timeSig} gapBetweenLines={gapBetweenLines} lineWidth={lineWidth} id={i.toString()} notes={line} />)}
                 </div>
                 <button onClick={takeScreenshot}>Take Screenshot</button>
-                <button onClick={() => this.selectNote("C", 3, "0:0:0")}>Select</button>
+                {/*<button onClick={() => this.selectNote("C", 3, "0:0:0")}>Select</button>*/}
                 <button onClick={this.addEmptyBar}>Add bar</button>
             </div>
         );

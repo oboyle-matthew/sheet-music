@@ -13,12 +13,12 @@ const getRandomColor = () => {
 };
 
 function ScoreLine(props) {
-    const { lineWidth, gapBetweenLines, timeSig } = props;
+    const { lineWidth, gapBetweenLines, timeSig, selectNote } = props;
     return (
         <StaffContainer gapBetweenLines={gapBetweenLines} lineWidth={lineWidth} >
             <LineInfo lineWidth={lineWidth} gapBetweenLines={gapBetweenLines} timeSig={timeSig} />
             {props.notes.map(bar => (
-                <Bar timeSig={timeSig[0]/timeSig[1]} notes={bar} lineWidth={lineWidth} gapBetweenLines={gapBetweenLines} width={100/props.notes.length} />
+                <Bar selectNote={selectNote} timeSig={timeSig[0]/timeSig[1]} notes={bar} lineWidth={lineWidth} gapBetweenLines={gapBetweenLines} width={100/props.notes.length} />
             ))}
         </StaffContainer>
     )

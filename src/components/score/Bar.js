@@ -9,16 +9,16 @@ import RestReader from "./notes/rests/RestReader";
 import {getDistanceFromTop} from "../../helpers/GetPosFromNote";
 import {getRandomColor} from "../../helpers/RandomColor";
 
-const click = (event) => {
-    console.log(event.target.classList);
-    console.log(event.target.classList.contains('inner'));
-    if(event.target === event.currentTarget) {
-        // handle
-        console.log("Yes");
-    } else {
-        console.log("No");
-    }
-};
+// const click = (event) => {
+//     console.log(event.target.classList);
+//     console.log(event.target.classList.contains('inner'));
+//     if(event.target === event.currentTarget) {
+//         // handle
+//         console.log("Yes");
+//     } else {
+//         console.log("No");
+//     }
+// };
 
 const calculateStemConnector = (currNote, nextNote, timeSig) => {
     //TODO: Need to handle it differently for different time Sigs (Also need actual TimSig, not just top/bottom, Eg. 6/8 !== 3/4
@@ -30,29 +30,45 @@ const calculateStemConnector = (currNote, nextNote, timeSig) => {
     return null;
 };
 
+const click = (event, note) => {
+    if (event.target.classList.contains('note-head')) {
+        console.log("note-head");
+    } else if (event.target.classList.contains('stem')) {
+        console.log('stem');
+    } else if (event.target.classList.contains('beam')) {
+        console.log('beam');
+    }
+    console.log(event);
+    // console.log("Note click");
+}
+
 function Bar(props) {
-    const { lineWidth, gapBetweenLines, width, timeSig } = props;
+    const { lineWidth, gapBetweenLines, width, timeSig, selectNote } = props;
     return (
         <BarContainer width={width} gapBetweenLines={gapBetweenLines} lineWidth={lineWidth}>
             <NotesContainer gapBetweenLines={gapBetweenLines}>
                 {props.notes.map((note, i) => {
+                    let reader;
                     if (note.pitch === 'rest') {
-                        return <RestReader timeSig={timeSig} gapBetweenLines={gapBetweenLines} lineWidth={lineWidth} note={note}/>
+                        reader = <RestReader timeSig={timeSig} gapBetweenLines={gapBetweenLines} lineWidth={lineWidth} note={note}/>
                     } else {
                         let stemConnector = null;
                         if (i < props.notes.length-1) {
                             stemConnector = calculateStemConnector(note, props.notes[i+1], timeSig);
                         }
-                        return <NoteReader timeSig={timeSig} gapBetweenLines={gapBetweenLines} lineWidth={lineWidth}
+                        reader = <NoteReader timeSig={timeSig} gapBetweenLines={gapBetweenLines} lineWidth={lineWidth}
                                            note={note} stemConnector={stemConnector} />
                     }
+                    return <ElementContainer onClick={e => selectNote(e, note)}>
+                        {reader}
+                    </ElementContainer>
                 })}
             </NotesContainer>
         </BarContainer>
     );
 }
 
-const Inner = styled.div`
+const ElementContainer = styled.div`
     
 `
 

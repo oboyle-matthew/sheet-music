@@ -16,8 +16,7 @@ const Rest = styled.div`
     background: black;
     position: relative;
     top: ${props => props.gapBetweenLines + props.lineWidth}px;
-    margin: 0 auto;
-    
+    margin: 0 auto;    
 `
 
 export default WholeRest;
