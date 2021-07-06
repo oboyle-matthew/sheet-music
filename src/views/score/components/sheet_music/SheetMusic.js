@@ -2,39 +2,33 @@ import React from 'react';
 import {getTestNotes} from "../../../../helpers/TestNotes";
 import MusicPlayer from "./music_player/MusicPlayer";
 import Settings from "./settings/Settings";
-import {getDefaultScoreInfo} from "../../../../helpers/DefaultScoreInfo";
+import {getDefaultLayoutInfo, getTestLayoutInfo} from "../../../../helpers/DefaultLayoutInfo";
+import Score from "./score_display/Score";
+import {getTestScoreInfo} from "../../../../helpers/DefaultScoreInfo";
 
 const lineWidth = 1;
 const gapBetweenLines = 20;
-const barsPerLines = 2;
+const barsPerLine = 2;
 const timeSig = [2,2];
 
-class Score extends React.Component {
+class SheetMusic extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            notes: [],
             scoreInfo: {},
+            layoutInfo: [],
         };
     }
 
     componentWillMount() {
-        const testNotes = getTestNotes();
-        const defaultScoreInfo = getDefaultScoreInfo();
-        this.setState({
-            notes: testNotes,
-            scoreInfo: defaultScoreInfo
-        })
+        const scoreInfo = getTestScoreInfo();
+        const layoutInfo = getTestLayoutInfo();
+        this.setState({scoreInfo, layoutInfo})
     }
 
-    handleKeyPress = (event) => {
-        console.log("TEST");
-        console.log(event);
-    };
-
-    changeScoreInfo = (key, value) => {
+    changeLayoutInfo = (key, value) => {
         this.setState({
-            scoreInfo: {
+            layoutInfo: {
                 ...this.state.scoreInfo,
                 [key]: value,
             }
@@ -42,15 +36,17 @@ class Score extends React.Component {
     };
 
     render() {
-        const { notes, scoreInfo } = this.state;
+        const { scoreInfo, layoutInfo } = this.state;
+        // console.log(notes);
         return (
-            <div tabIndex={0} onKeyPress={this.handleKeyPress}>
+            <div tabIndex={0}>
                 <h1>Sheet music</h1>
-                <MusicPlayer notes={notes} />
-                <Settings updateKey={this.changeScoreInfo} scoreInfo={scoreInfo} />
+                {/*<MusicPlayer notes={notes} />*/}
+                <Settings updateKey={this.changeLayoutInfo} layoutInfo={layoutInfo} />
+                <Score scoreInfo={scoreInfo} barsPerLine={2} />
             </div>
         );
     }
 }
 
-export default Score;
+export default SheetMusic;

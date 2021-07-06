@@ -82,11 +82,11 @@ class Settings extends React.Component {
     };
 
     render() {
-        const { scoreInfo } = this.props;
+        const { layoutInfo } = this.props;
         return (
             <div>
                 <h3>Settings</h3>
-                {Object.keys(scoreInfo).map(key => this.renderSetting(key, scoreInfo[key]))}
+                {Object.keys(layoutInfo).map(key => this.renderSetting(key, layoutInfo[key]))}
             </div>
         );
     }
